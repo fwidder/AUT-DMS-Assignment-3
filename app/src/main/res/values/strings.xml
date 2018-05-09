@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Sauron</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_create_group">CreateGroupActivity</string>
+    <string name="title_activity_choose_point">ChoosePointActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_join">JoinActivity</string>
 </resources>
