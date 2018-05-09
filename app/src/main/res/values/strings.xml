@@ -26,6 +26,7 @@
     <string name="chooseraly">Choose Rally Point</string>
     <string name="inputraly">Input Rally</string>
     <string name="genrally">Generate Rally</string>
+    <string name="listconn">Connections List</string>
 
 
 </resources>
