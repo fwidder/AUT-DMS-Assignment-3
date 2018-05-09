@@ -6,4 +6,26 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_join">JoinActivity</string>
+
+
+    <string name="creategroup">Create Group</string>
+    <string name="hotsurface">Hot Surface</string>
+    <string name="joingroup">Join Group</string>
+    <string name="profile">Hot Profile</string>
+    <string name="name">Name</string>
+    <string name="phonenum">Phone Number</string>
+    <string name="phone">Phone/string></string>
+    <string name="utxt">Unlimited TXT</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="groupname">Group Name</string>
+    <string name="nfcprogress">NFC Progress</string>
+    <string name="scanqr">Scan QR Code</string>
+    <string name="manual">Manual</string>
+    <string name="auto">Auto</string>
+    <string name="chooseraly">Choose Rally Point</string>
+    <string name="inputraly">Input Rally</string>
+    <string name="genrally">Generate Rally</string>
+
+
 </resources>
