@@ -9,3 +9,6 @@
 /captures
 .externalNativeBuild
 /Thumbs.db
+/.idea
+/.gradle
+Thumbs.db
