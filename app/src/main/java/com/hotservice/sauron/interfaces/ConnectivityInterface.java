@@ -1,5 +1,6 @@
 package com.hotservice.sauron.interfaces;
 
+import com.hotservice.sauron.model.MessageWrapper;
 import com.hotservice.sauron.model.Metadata;
 import com.hotservice.sauron.model.NotSupportedException;
 import com.hotservice.sauron.model.User;
@@ -14,9 +15,9 @@ public interface ConnectivityInterface {
 
     boolean disconnect() throws NotSupportedException;
 
-    boolean sendMessage(User reciever, String message) throws NotSupportedException;
+    boolean sendMessage(User receiver, MessageWrapper message) throws NotSupportedException;
 
-    boolean sendBroadcast(String message) throws NotSupportedException;
+    boolean sendBroadcast(MessageWrapper message) throws NotSupportedException;
 
     boolean pair(String ID) throws NotSupportedException;
 
@@ -29,4 +30,6 @@ public interface ConnectivityInterface {
     boolean isServer() throws NotSupportedException;
 
     boolean isClient() throws NotSupportedException;
+
+    MessageWrapper receive() throws NotSupportedException;
 }
