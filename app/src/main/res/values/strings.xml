@@ -16,8 +16,7 @@
     <string name="scanqrdesc">Your qr code scan window</string>
     <string name="maprallyviewdesc">Image of rally point on map</string>
     <string name="phonenumdesc">Phone number currently used</string>
-
-
+    
     <string name="creategroup">Create Group</string>
     <string name="hotsurface">Hot Surface</string>
     <string name="joingroup">Join Group</string>
@@ -37,6 +36,9 @@
     <string name="inputraly">Input Rally</string>
     <string name="genrally">Generate Rally</string>
     <string name="listconn">Connections List</string>
+
+    <string name="inputname">Enter Name...</string>
+
 
 
 </resources>
