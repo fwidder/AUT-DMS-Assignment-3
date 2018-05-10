@@ -18,7 +18,7 @@
 
     <uses-feature android:name="android.hardware.gps" />
     <uses-feature android:name="android.hardware.camera2" />
-
+    <uses-feature android:name="android.hardware.nfc" />
 
     <application
         android:allowBackup="true"

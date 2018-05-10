@@ -5,6 +5,9 @@ import com.hotservice.sauron.model.NotSupportedException;
 import com.hotservice.sauron.model.User;
 
 public interface ConnectivityInterface {
+
+    boolean isAvailable() throws NotSupportedException;
+
     Metadata getMetadata() throws NotSupportedException;
 
     boolean connect(String ID) throws NotSupportedException;
