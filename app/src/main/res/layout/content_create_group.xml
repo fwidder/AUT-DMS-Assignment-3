@@ -11,6 +11,7 @@
 
     <EditText
         android:id="@+id/nameBox"
+        android:contentDescription="@string/nameboxdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -77,6 +78,7 @@
 
     <ImageView
         android:id="@+id/createGroupQR"
+        android:contentDescription="@string/creategroupdesc"
         android:layout_width="201dp"
         android:layout_height="176dp"
         android:layout_marginBottom="8dp"
@@ -91,6 +93,7 @@
 
     <EditText
         android:id="@+id/membersList"
+        android:contentDescription="@string/memberlistdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

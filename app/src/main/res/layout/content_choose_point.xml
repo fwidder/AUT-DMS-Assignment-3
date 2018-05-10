@@ -91,6 +91,7 @@
 
     <ImageView
         android:id="@+id/mapRalyView"
+        android:contentDescription="@string/maprallyviewdesc"
         android:layout_width="278dp"
         android:layout_height="261dp"
         android:layout_marginBottom="8dp"

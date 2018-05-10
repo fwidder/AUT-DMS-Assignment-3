@@ -11,6 +11,7 @@
 
     <ImageView
         android:id="@+id/profilePic"
+        android:contentDescription="@string/profilepicdesc"
         android:layout_width="102dp"
         android:layout_height="115dp"
         android:layout_marginBottom="8dp"
@@ -43,6 +44,7 @@
 
     <EditText
         android:id="@+id/editName"
+        android:contentDescription="@string/edittextdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -76,6 +78,7 @@
 
     <EditText
         android:id="@+id/phoneNum"
+        android:contentDescription="@string/phonenumdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

@@ -27,6 +27,7 @@
 
     <ImageView
         android:id="@+id/scanQR"
+        android:contentDescription="@string/scanqrdesc"
         android:layout_width="256dp"
         android:layout_height="240dp"
         android:layout_marginBottom="8dp"

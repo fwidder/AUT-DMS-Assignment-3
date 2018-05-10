@@ -7,6 +7,16 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_join">JoinActivity</string>
 
+    <string name="logodesc">Eye of Souron Logo</string>
+    <string name="profilepicdesc">Your Profile Picture</string>
+    <string name="edittextdesc">Edit the text</string>
+    <string name="nameboxdesc">Edit your name</string>
+    <string name="creategroupdesc">Your Profile Picture</string>
+    <string name="memberlistdesc">List of Members</string>
+    <string name="scanqrdesc">Your qr code scan window</string>
+    <string name="maprallyviewdesc">Image of rally point on map</string>
+    <string name="phonenumdesc">Phone number currently used</string>
+
 
     <string name="creategroup">Create Group</string>
     <string name="hotsurface">Hot Surface</string>
