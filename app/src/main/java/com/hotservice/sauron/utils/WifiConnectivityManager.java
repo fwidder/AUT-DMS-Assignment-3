@@ -1,6 +1,7 @@
 package com.hotservice.sauron.utils;
 
 import com.hotservice.sauron.interfaces.ConnectivityInterface;
+import com.hotservice.sauron.model.MessageWrapper;
 import com.hotservice.sauron.model.Metadata;
 import com.hotservice.sauron.model.NotSupportedException;
 import com.hotservice.sauron.model.User;
@@ -32,12 +33,12 @@ public class WifiConnectivityManager implements ConnectivityInterface {
     }
 
     @Override
-    public boolean sendMessage(User reciever, String message) throws NotSupportedException {
+    public boolean sendMessage(User receiver, MessageWrapper message) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean sendBroadcast(String message) throws NotSupportedException {
+    public boolean sendBroadcast(MessageWrapper message) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
@@ -69,5 +70,10 @@ public class WifiConnectivityManager implements ConnectivityInterface {
     @Override
     public boolean isClient() throws NotSupportedException {
         throw new NotSupportedException();
+    }
+
+    @Override
+    public MessageWrapper receive() {
+        return null;
     }
 }
