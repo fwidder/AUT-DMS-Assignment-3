@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-feature android:name="android.hardware.gps" />
     <uses-feature android:name="android.hardware.camera2" />
 
@@ -52,7 +51,7 @@
         <activity
             android:name=".activities.JoinActivity"
             android:label="@string/title_activity_join"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

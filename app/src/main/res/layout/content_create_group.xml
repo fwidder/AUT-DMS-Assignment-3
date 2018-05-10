@@ -11,6 +11,8 @@
 
     <EditText
         android:id="@+id/nameBox"
+        android:hint="@string/nameboxdesc"
+        android:contentDescription="@string/nameboxdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -19,7 +21,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -35,7 +37,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Group Name"
+        android:text="@string/groupname"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.266"
@@ -51,7 +53,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
@@ -67,7 +69,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.892"
@@ -77,6 +79,7 @@
 
     <ImageView
         android:id="@+id/createGroupQR"
+        android:contentDescription="@string/creategroupdesc"
         android:layout_width="201dp"
         android:layout_height="176dp"
         android:layout_marginBottom="8dp"
@@ -91,6 +94,8 @@
 
     <EditText
         android:id="@+id/membersList"
+        android:hint="@string/memberlistdesc"
+        android:contentDescription="@string/memberlistdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -114,7 +119,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="84dp"
         android:layout_marginTop="8dp"
-        android:text="List of Connections"
+        android:text="@string/listconn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.005"
