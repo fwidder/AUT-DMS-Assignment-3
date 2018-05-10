@@ -11,6 +11,12 @@ public class SmsConnectivityManager implements ConnectivityInterface {
     }
 
     @Override
+    public boolean isAvailable() throws NotSupportedException {
+        throw new NotSupportedException();
+    }
+
+
+    @Override
     public Metadata getMetadata() throws NotSupportedException {
         throw new NotSupportedException();
     }
