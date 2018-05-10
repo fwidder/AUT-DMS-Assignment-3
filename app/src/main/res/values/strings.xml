@@ -6,7 +6,7 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_join">JoinActivity</string>
-
+    <!-- DESCRIPTIONS  -->
     <string name="logodesc">Eye of Souron Logo</string>
     <string name="profilepicdesc">Your Profile Picture</string>
     <string name="edittextdesc">Edit the text</string>
@@ -16,7 +16,7 @@
     <string name="scanqrdesc">Your qr code scan window</string>
     <string name="maprallyviewdesc">Image of rally point on map</string>
     <string name="phonenumdesc">Phone number currently used</string>
-    
+    <!-- STRINGS   -->
     <string name="creategroup">Create Group</string>
     <string name="hotsurface">Hot Surface</string>
     <string name="joingroup">Join Group</string>
@@ -36,7 +36,7 @@
     <string name="inputraly">Input Rally</string>
     <string name="genrally">Generate Rally</string>
     <string name="listconn">Connections List</string>
-
+    <!--  VARIABLES  -->
     <string name="inputname">Enter Name...</string>
 
 
