@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.hotservice.sauron.R;
 
 import java.lang.ref.WeakReference;
-
+                                              // context     progress   return type  //
 public class BluetoothChecker extends AsyncTask<AppCompatActivity, Void, Boolean> {
     private WeakReference<AppCompatActivity> activity;
 
