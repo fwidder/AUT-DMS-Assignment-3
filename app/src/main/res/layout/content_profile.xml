@@ -44,6 +44,7 @@
 
     <EditText
         android:id="@+id/editName"
+        android:hint="@string/edittextdesc"
         android:contentDescription="@string/edittextdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,6 +79,7 @@
 
     <EditText
         android:id="@+id/phoneNum"
+        android:hint="@string/phonenumdesc"
         android:contentDescription="@string/phonenumdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

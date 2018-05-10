@@ -41,6 +41,7 @@
 
     <EditText
         android:id="@+id/editText"
+        android:hint="@string/edittextdesc"
         android:contentDescription="@string/edittextdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
