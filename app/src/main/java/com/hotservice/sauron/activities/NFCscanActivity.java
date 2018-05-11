@@ -1,7 +1,10 @@
 package com.hotservice.sauron.activities;
 
+import android.content.Intent;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
@@ -36,6 +39,23 @@ public class NFCscanActivity extends AppCompatActivity {
         message = new NfcMessage("TestMe");
 
         nfcAdapter.setNdefPushMessageCallback(message, this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        String re;
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Parcelable[] rawMessages = intent.getParcelableArrayExtra(
+                    NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+            NdefMessage message = (NdefMessage) rawMessages[0]; // only one message transferred
+            re = new String(message.getRecords()[0].getPayload());
+
+        } else
+            re = "Waiting for NDEF Message";
+        Toast.makeText(this, re, Toast.LENGTH_LONG).show();
     }
 }
 
