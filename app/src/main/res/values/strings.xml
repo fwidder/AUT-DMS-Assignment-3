@@ -38,7 +38,8 @@
     <string name="listconn">Connections List</string>
     <!--  VARIABLES  -->
     <string name="inputname">Enter Name...</string>
-
+    <string name="title_activity_qrscan">QRscanActivity</string>
+    <string name="title_activity_nfcscan">NFCscanActivity</string>
 
 
 </resources>
