@@ -1,5 +1,7 @@
 package com.hotservice.sauron.utils;
 
+import android.content.Context;
+
 import com.hotservice.sauron.interfaces.ConnectivityInterface;
 import com.hotservice.sauron.model.MessageWrapper;
 import com.hotservice.sauron.model.Metadata;
@@ -7,73 +9,73 @@ import com.hotservice.sauron.model.NotSupportedException;
 import com.hotservice.sauron.model.User;
 
 public class QrCodeConnectivityManager implements ConnectivityInterface {
-    public QrCodeConnectivityManager() {
+    public QrCodeConnectivityManager(Context context) {
         super();
     }
 
     @Override
-    public boolean isAvailable() throws NotSupportedException {
+    public boolean isAvailable(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
 
     @Override
-    public Metadata getMetadata() throws NotSupportedException {
+    public Metadata getMetadata(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean connect(String ID) throws NotSupportedException {
+    public boolean connect(Context context, String ID) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean disconnect() throws NotSupportedException {
+    public boolean disconnect(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean sendMessage(User receiver, MessageWrapper message) throws NotSupportedException {
+    public boolean sendMessage(Context context, User receiver, MessageWrapper message) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean sendBroadcast(MessageWrapper message) throws NotSupportedException {
+    public boolean sendBroadcast(Context context, MessageWrapper message) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean pair(String ID) throws NotSupportedException {
+    public boolean pair(Context context, String ID) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean startServer() throws NotSupportedException {
+    public boolean startServer(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean stopServer() throws NotSupportedException {
+    public boolean stopServer(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean isConnected() throws NotSupportedException {
+    public boolean isConnected(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean isServer() throws NotSupportedException {
+    public boolean isServer(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean isClient() throws NotSupportedException {
+    public boolean isClient(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public MessageWrapper receive() {
+    public MessageWrapper receive(Context context) {
         return null;
     }
 }
