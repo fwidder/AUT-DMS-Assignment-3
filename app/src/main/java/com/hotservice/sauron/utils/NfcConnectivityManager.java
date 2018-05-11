@@ -1,5 +1,6 @@
 package com.hotservice.sauron.utils;
 
+import android.content.Context;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -18,37 +19,37 @@ public class NfcConnectivityManager implements ConnectivityInterface {
     private NfcAdapter nfcAdapter;
 
 
-    public NfcConnectivityManager() {
+    public NfcConnectivityManager(Context context) {
         super();
         nfcAdapter = NfcAdapter.getDefaultAdapter(StartActivity.getAppContext());
     }
 
     @Override
-    public boolean isAvailable() throws NotSupportedException {
+    public boolean isAvailable(Context context) throws NotSupportedException {
         if (nfcAdapter == null)
             throw new NotSupportedException();
         return nfcAdapter.isEnabled();
     }
 
     @Override
-    public Metadata getMetadata() throws NotSupportedException {
+    public Metadata getMetadata(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
     @Deprecated
-    public boolean connect(String ID) throws NotSupportedException {
+    public boolean connect(Context context, String ID) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
     @Deprecated
-    public boolean disconnect() throws NotSupportedException {
+    public boolean disconnect(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean sendMessage(User receiver, final MessageWrapper message) throws NotSupportedException {
+    public boolean sendMessage(Context context, User receiver, final MessageWrapper message) throws NotSupportedException {
         nfcAdapter.setNdefPushMessageCallback(new NfcAdapter.CreateNdefMessageCallback() {
             @Override
             public NdefMessage createNdefMessage(NfcEvent event) {
@@ -65,13 +66,13 @@ public class NfcConnectivityManager implements ConnectivityInterface {
     }
 
     @Override
-    public boolean sendBroadcast(MessageWrapper message) throws NotSupportedException {
+    public boolean sendBroadcast(Context context, MessageWrapper message) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
     @Deprecated
-    public boolean pair(String ID) throws NotSupportedException {
+    public boolean pair(Context context, String ID) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
@@ -79,35 +80,35 @@ public class NfcConnectivityManager implements ConnectivityInterface {
      * Starts a server waiting for clients
      *
      * @return success
-     * @throws NotSupportedException
+     * @throws NotSupportedException when not supported by the manager
      */
     @Override
-    public boolean startServer() throws NotSupportedException {
+    public boolean startServer(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean stopServer() throws NotSupportedException {
+    public boolean stopServer(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean isConnected() throws NotSupportedException {
+    public boolean isConnected(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean isServer() throws NotSupportedException {
+    public boolean isServer(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public boolean isClient() throws NotSupportedException {
+    public boolean isClient(Context context) throws NotSupportedException {
         throw new NotSupportedException();
     }
 
     @Override
-    public MessageWrapper receive() {
+    public MessageWrapper receive(Context context) {
         return null;
     }
 }
