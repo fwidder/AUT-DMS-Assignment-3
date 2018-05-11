@@ -8,14 +8,19 @@ import com.hotservice.sauron.model.Metadata;
 import com.hotservice.sauron.model.NotSupportedException;
 import com.hotservice.sauron.model.User;
 
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
 public class QrCodeConnectivityManager implements ConnectivityInterface {
+
     public QrCodeConnectivityManager(Context context) {
+
         super();
     }
 
     @Override
     public boolean isAvailable(Context context) throws NotSupportedException {
         throw new NotSupportedException();
+
     }
 
 

@@ -38,7 +38,6 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
             }
         }
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
