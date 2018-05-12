@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -20,6 +21,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera2" />
@@ -30,11 +32,20 @@
     <uses-feature android:name="android.hardware.nfc" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver
+            android:name="com.hotservice.sauron.utils.SmsListener"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,15 +79,9 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.QRscanActivity"
             android:label="@string/title_activity_qrscan"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.NFCscanActivity"
-            android:label="@string/title_activity_nfcscan"
-
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.PictureActivity"

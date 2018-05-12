@@ -1,5 +1,7 @@
 package com.hotservice.sauron.model;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,5 +24,21 @@ public class Group {
 
     public synchronized List<User> getUserList() {
         return users;
+    }
+
+    public String userListToJson() {
+        Gson gson = new Gson();
+
+        return gson.toJson(getUserList());
+    }
+
+    public void importJsonToList(String json) {
+        Gson gson = new Gson();
+        ArrayList tmp = gson.fromJson(json, ArrayList.class);
+        getUserList().clear();
+        for (Object o : tmp) {
+            User u = (User) o;
+            getUserList().add(u);
+        }
     }
 }
