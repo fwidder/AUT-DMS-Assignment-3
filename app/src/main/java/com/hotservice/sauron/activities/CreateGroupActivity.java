@@ -29,7 +29,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         final Context context = this;
         editText = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
@@ -40,7 +39,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String text2QR = editText.getText().toString();
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try {
-                    BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE, 200, 200);
+                    BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE, 400, 400);
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                     imageView.setImageBitmap(bitmap);

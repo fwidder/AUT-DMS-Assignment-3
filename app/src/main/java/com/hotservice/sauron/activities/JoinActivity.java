@@ -29,21 +29,10 @@ public class JoinActivity extends AppCompatActivity {
                 openQrActivity();
             }
         });
-        nfc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNfcActivity();
-            }
-        });
     }
 
     public void openQrActivity() {
         Intent intent = new Intent(this, QRscanActivity.class);
-        startActivity(intent);
-    }
-
-    public void openNfcActivity() {
-        Intent intent = new Intent(this, NFCscanActivity.class);
         startActivity(intent);
     }
 }
