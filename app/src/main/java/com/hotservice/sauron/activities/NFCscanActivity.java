@@ -1,4 +1,5 @@
 package com.hotservice.sauron.activities;
+
 //TODO: Move to Join Activity
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,11 +45,8 @@ public class NFCscanActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
         }
-
         //TODO: Create Message
-
         message = new NfcMessage("TestMe");
-
         nfcAdapter.setNdefPushMessageCallback(message, this);
     }
 
@@ -67,11 +65,6 @@ public class NFCscanActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
             }
-
         }
     }
-
-
 }
-
-
