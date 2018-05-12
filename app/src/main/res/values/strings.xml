@@ -40,6 +40,7 @@
     <string name="inputname">Enter Name...</string>
     <string name="title_activity_qrscan">QRscanActivity</string>
     <string name="title_activity_nfcscan">NFCscanActivity</string>
+    <string name="title_activity_picture">PictureActivity</string>
 
 
 </resources>
