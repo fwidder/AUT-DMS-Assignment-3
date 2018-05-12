@@ -1,5 +1,5 @@
 package com.hotservice.sauron.activities;
-
+//TODO: Move to Join Activity
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.nfc.NdefMessage;
@@ -30,12 +30,9 @@ public class NFCscanActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-
-
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-
         PackageManager pm = this.getPackageManager();
-
+        //TODO: Remove Hardcoded Strings
         if (!pm.hasSystemFeature(PackageManager.FEATURE_NFC)) {
             Toast.makeText(this, "The device does not has NFC hardware.",
                     Toast.LENGTH_SHORT).show();
