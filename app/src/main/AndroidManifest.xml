@@ -33,7 +33,6 @@
         <activity android:name=".activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -56,7 +55,14 @@
         <activity
             android:name=".activities.JoinActivity"
             android:label="@string/title_activity_join"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".activities.QRscanActivity"
             android:label="@string/title_activity_qrscan"
@@ -69,18 +75,8 @@
         <activity
             android:name=".activities.PictureActivity"
             android:label="@string/title_activity_picture"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activities.BlueToothActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.BlueToothActivity" />
     </application>
 
 </manifest>

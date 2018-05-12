@@ -1,7 +1,7 @@
 package com.hotservice.sauron.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.hotservice.sauron.R;
 
