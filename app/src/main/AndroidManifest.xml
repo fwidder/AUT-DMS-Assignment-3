@@ -64,11 +64,20 @@
         <activity
             android:name=".activities.NFCscanActivity"
             android:label="@string/title_activity_nfcscan"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.PictureActivity"
             android:label="@string/title_activity_picture"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
