@@ -1,6 +1,7 @@
 package com.hotservice.sauron.activities;
 
 //TODO: Move to Join Activity
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.nfc.NdefMessage;

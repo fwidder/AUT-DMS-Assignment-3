@@ -1,6 +1,5 @@
 package com.hotservice.sauron.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,17 +13,10 @@ public class StartActivity extends AppCompatActivity {
     private Button create;
     private Button join;
     private Button profile;
-    private static Context context;
-
-    public static Context getAppContext() {
-        return StartActivity.context;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        context = getApplicationContext();
 
         setContentView(R.layout.content_start);
 

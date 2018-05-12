@@ -3,8 +3,6 @@ package com.hotservice.sauron.activities;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -32,17 +30,17 @@ public class CreateGroupActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Context context  = this;
-        editText = (EditText) this.findViewById(R.id.nameBox);
-        imageView = (ImageView) this.findViewById(R.id.createGroupQR);
-        button = (Button) this.findViewById(R.id.saveButton);
+        final Context context = this;
+        editText = this.findViewById(R.id.nameBox);
+        imageView = this.findViewById(R.id.createGroupQR);
+        button = this.findViewById(R.id.saveButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String text2QR = editText.getText().toString();
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try {
-                    BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE,200,200);
+                    BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE, 200, 200);
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                     imageView.setImageBitmap(bitmap);
