@@ -47,7 +47,6 @@
         android:layout_marginTop="8dp"
         android:contentDescription="@string/edittextdesc"
         android:ems="10"
-        android:hint="@string/edittextdesc"
         android:inputType="textPersonName"
         android:text="@string/hotsurface"
         app:layout_constraintBottom_toBottomOf="parent"
