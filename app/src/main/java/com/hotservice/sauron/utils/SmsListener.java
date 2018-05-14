@@ -32,7 +32,7 @@ public class SmsListener extends BroadcastReceiver {
                     }
             }
         } catch (Exception e) {
-            Log.e("SmsReceiver", "Exception smsReceiver" + e);
+            Log.e("SmsListener", "Exception in SmsListener: " + e);
         }
     }
 }

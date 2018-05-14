@@ -3,9 +3,10 @@ package com.hotservice.sauron.utils;
 import android.Manifest;
 
 public class Config {
+
     public static final String SMS_HEAD = "|SAURON|";
 
-    public static String[] PERMISSIONS = new String[]{
+    public static final String[] PERMISSIONS = new String[]{
             Manifest.permission.SEND_SMS,
             Manifest.permission.READ_SMS,
             Manifest.permission.RECEIVE_SMS,
@@ -26,6 +27,6 @@ public class Config {
             Manifest.permission.CAMERA,
 
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 }

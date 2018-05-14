@@ -5,10 +5,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RequestPermissionHandler {
@@ -39,7 +37,6 @@ public class RequestPermissionHandler {
             mRequestPermissionListener.onSuccess();
             return;
         }
-        Log.d("permissionRequest", Arrays.toString(unGrantedPermissions));
         ActivityCompat.requestPermissions(mActivity, unGrantedPermissions, requestCode);
     }
 

@@ -5,11 +5,10 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 
-public class NfcMessage implements NfcAdapter.CreateNdefMessageCallback {
-    private final String message;
+public class NfcMessage extends AbstractMessage implements NfcAdapter.CreateNdefMessageCallback {
 
     public NfcMessage(String message) {
-        this.message = message;
+        super(message);
     }
 
     @Override
