@@ -1,20 +1,26 @@
 package com.hotservice.sauron.activities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.model.messages.NfcMessage;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class CreateGroupActivity extends AppCompatActivity {
@@ -46,9 +52,35 @@ public class CreateGroupActivity extends AppCompatActivity {
                 } catch (WriterException e) {
                     e.printStackTrace();
                 }
+                sendMessage();
             }
         });
 
+    }
+
+    private void sendMessage() {
+        NfcAdapter nfcAdapter;
+        NfcMessage message;
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        PackageManager pm = this.getPackageManager();
+        //TODO: Remove Hardcoded Strings
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_NFC)) {
+            Toast.makeText(this, "The device does not has NFC hardware.",
+                    Toast.LENGTH_SHORT).show();
+        } else if (!nfcAdapter.isEnabled()) {
+            Toast.makeText(this, "Please enable NFC via Settings.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+        } else if (!nfcAdapter.isNdefPushEnabled()) {
+            Toast.makeText(this, "Please enable Android Beam.",
+                    Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
+        }
+
+        //TODO: Create Message
+
+        message = new NfcMessage("TestMe");
+
+        nfcAdapter.setNdefPushMessageCallback(message, this);
     }
 
 }
