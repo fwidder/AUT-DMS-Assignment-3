@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.utils.BlueTimer;
 import com.hotservice.sauron.model.messages.NfcMessage;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
@@ -39,6 +41,8 @@ public class CreateGroupActivity extends AppCompatActivity {
         editText = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
         button = this.findViewById(R.id.saveButton);
+        Intent intent = new Intent(this, BlueTimer.class);      // background service
+        startService(intent);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
