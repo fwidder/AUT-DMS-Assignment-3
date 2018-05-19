@@ -14,8 +14,7 @@ public class NfcMessage extends AbstractMessage implements NfcAdapter.CreateNdef
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
         NdefRecord ndefRecord = NdefRecord.createMime("text/plain", message.getBytes());
-        NdefMessage ndefMessage = new NdefMessage(ndefRecord);
-        return ndefMessage;
+        return new NdefMessage(ndefRecord);
     }
 
     public String getMessage() {

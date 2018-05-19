@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 public class PictureActivity extends AppCompatActivity {
     private static final int IMAGE_GALLERY_REQUEST = 10;
@@ -55,7 +56,7 @@ public class PictureActivity extends AppCompatActivity {
         if (requestCode == IMAGE_GALLERY_REQUEST) {
             Uri imageUri = data.getData();
             InputStream in;
-            try (InputStream inputStream = in = getContentResolver().openInputStream(imageUri)) {
+            try (InputStream inputStream = in = getContentResolver().openInputStream(Objects.requireNonNull(imageUri))) {
                 Bitmap photo = BitmapFactory.decodeStream(in);
                 profilePic.setImageBitmap(photo);
             } catch (FileNotFoundException e) {

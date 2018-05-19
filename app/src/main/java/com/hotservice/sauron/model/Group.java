@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Group {
     private static Group me;
-    private List<User> users;
+    private final List<User> users;
 
     private Group() {
         users = Collections.synchronizedList(new ArrayList<User>());
