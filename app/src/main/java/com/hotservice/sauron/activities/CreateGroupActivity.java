@@ -2,8 +2,11 @@ package com.hotservice.sauron.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -18,6 +22,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.utils.BlueTimer;
+import com.hotservice.sauron.model.messages.NfcMessage;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class CreateGroupActivity extends AppCompatActivity {
@@ -44,16 +49,41 @@ public class CreateGroupActivity extends AppCompatActivity {
                 String text2QR = editText.getText().toString();
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try {
-                    BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE, 200, 200);
+                    BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE, 400, 400);
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                     imageView.setImageBitmap(bitmap);
                 } catch (WriterException e) {
                     e.printStackTrace();
                 }
+                sendMessage();
             }
         });
 
+    }
+
+    private void sendMessage() {
+        NfcAdapter nfcAdapter;
+        NfcMessage message;
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        PackageManager pm = this.getPackageManager();
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_NFC)) {
+            Toast.makeText(this, "@String/noNfc",
+                    Toast.LENGTH_SHORT).show();
+        } else if (!nfcAdapter.isEnabled()) {
+            Toast.makeText(this, "@String/nfwDisabled", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+        } else if (!nfcAdapter.isNdefPushEnabled()) {
+            Toast.makeText(this, "@String/androidBeamDIsabled",
+                    Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
+        }
+
+        //TODO: Create Message
+
+        message = new NfcMessage("TestMe");
+
+        nfcAdapter.setNdefPushMessageCallback(message, this);
     }
 
 }
