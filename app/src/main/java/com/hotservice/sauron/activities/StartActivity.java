@@ -37,7 +37,12 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.content_start);
 
         // Set context variables
+        join = findViewById(R.id.JoinNav);
+        profile = findViewById(R.id.profileNav);
+        create = findViewById(R.id.createNav);
         mRequestPermissionHandler = new RequestPermissionHandler();
+
+        // Set Button listeners
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,12 +61,6 @@ public class StartActivity extends AppCompatActivity {
                 openCreateActivity();
             }
         });
-
-        // Set Button listeners
-        join = findViewById(R.id.JoinNav);
-        profile = findViewById(R.id.profileNav);
-        create = findViewById(R.id.createNav);
-
         //Get permissions
         loadPermissions();
     }
