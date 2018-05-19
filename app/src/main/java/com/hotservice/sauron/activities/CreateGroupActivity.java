@@ -29,7 +29,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 public class CreateGroupActivity extends AppCompatActivity {
 
     private Button saveButton;
-    private EditText editText;
+    private EditText nameBox;
     private ImageView imageView;
 
     @Override
@@ -38,7 +38,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         // Set context variables
         Toolbar toolbar = findViewById(R.id.toolbar);
-        editText = this.findViewById(R.id.nameBox);
+        nameBox = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
         saveButton = this.findViewById(R.id.saveButton);
 
@@ -54,7 +54,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Config.CREATOR = true;
 
                 // Create and display QR-Code
-                String text2QR = editText.getText().toString();
+                String text2QR = nameBox.getText().toString();
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try {
                     BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE, 400, 400);
