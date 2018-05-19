@@ -1,6 +1,5 @@
 package com.hotservice.sauron.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -21,27 +20,40 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.model.messages.NfcMessage;
+import com.hotservice.sauron.utils.Config;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+/**
+ * Activity to create a group
+ */
 public class CreateGroupActivity extends AppCompatActivity {
 
-    private Button button;
+    private Button saveButton;
     private EditText editText;
     private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_group);
+
+        // Set context variables
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        final Context context = this;
         editText = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
-        button = this.findViewById(R.id.saveButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        saveButton = this.findViewById(R.id.saveButton);
+
+        // Set layout
+        setContentView(R.layout.activity_create_group);
+        setSupportActionBar(toolbar);
+
+        // Set button actions
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Set to CREATOR (Server State)
+                Config.CREATOR = true;
+
+                // Create and display QR-Code
                 String text2QR = editText.getText().toString();
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try {
@@ -52,13 +64,18 @@ public class CreateGroupActivity extends AppCompatActivity {
                 } catch (WriterException e) {
                     e.printStackTrace();
                 }
-                sendMessage();
+
+                //Start NFC-Sending
+                startNFC();
             }
         });
 
     }
 
-    private void sendMessage() {
+    /**
+     * Starts NFC sending process
+     */
+    private void startNFC() {
         NfcAdapter nfcAdapter;
         NfcMessage message;
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -70,7 +87,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             Toast.makeText(this, "@String/nfwDisabled", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
         } else if (!nfcAdapter.isNdefPushEnabled()) {
-            Toast.makeText(this, "@String/androidBeamDIsabled",
+            Toast.makeText(this, "@String/androidBeamDisabled",
                     Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
         }
