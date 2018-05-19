@@ -36,8 +36,11 @@
     <string name="inputraly">Input Rally</string>
     <string name="genrally">Generate Rally</string>
     <string name="listconn">Connections List</string>
+    <string name="noNfc">The device does not has NFC hardware.</string>
+    <string name="nfcDisbaled">Please enable NFC via Settings.</string>
+    <string name="androidBeamDisabled">Please enable Android Beam.</string>
     <!--  VARIABLES  -->
-    <string name="inputname">Enter Name...</string>
+    <string name="inputname">Enter Name&#8230;</string>
     <string name="title_activity_qrscan">QRscanActivity</string>
     <string name="title_activity_nfcscan">NFCscanActivity</string>
     <string name="title_activity_picture">PictureActivity</string>

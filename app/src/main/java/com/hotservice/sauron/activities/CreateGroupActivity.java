@@ -63,15 +63,14 @@ public class CreateGroupActivity extends AppCompatActivity {
         NfcMessage message;
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         PackageManager pm = this.getPackageManager();
-        //TODO: Remove Hardcoded Strings
         if (!pm.hasSystemFeature(PackageManager.FEATURE_NFC)) {
-            Toast.makeText(this, "The device does not has NFC hardware.",
+            Toast.makeText(this, "@String/noNfc",
                     Toast.LENGTH_SHORT).show();
         } else if (!nfcAdapter.isEnabled()) {
-            Toast.makeText(this, "Please enable NFC via Settings.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "@String/nfwDisabled", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
         } else if (!nfcAdapter.isNdefPushEnabled()) {
-            Toast.makeText(this, "Please enable Android Beam.",
+            Toast.makeText(this, "@String/androidBeamDIsabled",
                     Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
         }

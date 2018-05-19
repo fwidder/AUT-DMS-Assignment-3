@@ -5,8 +5,10 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RequestPermissionHandler {
@@ -57,6 +59,7 @@ public class RequestPermissionHandler {
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        Log.d("Permissions", Arrays.toString(permissions) + "|" + Arrays.toString(grantResults));
         if (requestCode == mRequestCode) {
             if (grantResults.length > 0) {
                 for (int grantResult : grantResults) {

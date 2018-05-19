@@ -64,7 +64,7 @@ public class StartActivity extends AppCompatActivity {
         mRequestPermissionHandler.requestPermission(this, Config.PERMISSIONS, 12345, new RequestPermissionHandler.RequestPermissionListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(StartActivity.this, "request permission success", Toast.LENGTH_LONG).show();
+                // Toast.makeText(StartActivity.this, "request permission success", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -87,7 +87,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void openProfileActivity() {
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, BlueToothActivity.class);
         startActivity(intent);
     }
 }
