@@ -1,10 +1,12 @@
 package com.hotservice.sauron.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.utils.BlueTimer;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class CreateGroupActivity extends AppCompatActivity {
@@ -29,11 +32,12 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         final Context context = this;
         editText = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
         button = this.findViewById(R.id.saveButton);
+        Intent intent = new Intent(this, BlueTimer.class);      // background service
+        startService(intent);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
