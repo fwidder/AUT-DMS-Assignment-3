@@ -11,8 +11,8 @@ import com.hotservice.sauron.R;
 import com.hotservice.sauron.service.BluetoothService;
 
 public class BlueToothActivity extends AppCompatActivity {
-    Intent mServiceIntent;
-    Context ctx;
+    private Intent mServiceIntent;
+    private Context ctx;
     private BluetoothService mBluetoothService;
 
     public Context getCtx() {
@@ -26,14 +26,14 @@ public class BlueToothActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blue_tooth);
         mBluetoothService = new BluetoothService(getCtx());
         mServiceIntent = new Intent(getCtx(), mBluetoothService.getClass());
-        if (!isMyServiceRunning(mBluetoothService.getClass())) {
+        if (!isServiceRunning(mBluetoothService.getClass())) {
             Log.d("Bluetooth Service", "Starting Service");
             startService(mServiceIntent);
         }
     }
 
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
+    private boolean isServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
