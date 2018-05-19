@@ -107,7 +107,6 @@
             android:label="@string/title_activity_picture"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.BlueToothActivity" />
-        <service android:name=".utils.BlueTimer" android:exported="false" />
     </application>
 
 </manifest>
