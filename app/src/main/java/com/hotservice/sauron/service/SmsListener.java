@@ -1,4 +1,4 @@
-package com.hotservice.sauron.utils;
+package com.hotservice.sauron.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.hotservice.sauron.utils.Config;
 
 public class SmsListener extends BroadcastReceiver {
 
