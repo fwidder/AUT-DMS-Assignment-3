@@ -10,7 +10,11 @@ import android.widget.Toast;
 
 import com.hotservice.sauron.utils.Config;
 
-public class SmsListener extends BroadcastReceiver {
+/**
+ * Listens to SMS messages and processes messages wich are in cotext with the app
+ * Filter using Config.SMS_HEAD
+ */
+public class SmsService extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
         final Bundle bundle = intent.getExtras();
@@ -27,6 +31,7 @@ public class SmsListener extends BroadcastReceiver {
                         if (!message.startsWith(Config.SMS_HEAD))
                             return;
 
+                        //TODO: Handle Message!
                         int duration = Toast.LENGTH_LONG;
                         Toast toast = Toast.makeText(context,
                                 "sender: \"" + phoneNumber + "\", message: \"" + message + "\"", duration);

@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 
 import com.hotservice.sauron.R;
 
+/**
+ * Activity for choosing the rally point
+ */
 public class ChoosePointActivity extends AppCompatActivity {
 
     @Override

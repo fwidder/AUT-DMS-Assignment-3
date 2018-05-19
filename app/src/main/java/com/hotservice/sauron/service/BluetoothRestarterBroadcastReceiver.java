@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 /**
- * Created by fabio on 24/01/2016.
+ * Restarts the bluetooth service on destroy
  */
 public class BluetoothRestarterBroadcastReceiver extends BroadcastReceiver {
 

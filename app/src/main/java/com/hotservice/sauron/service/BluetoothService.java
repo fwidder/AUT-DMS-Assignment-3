@@ -10,9 +10,6 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by fabio on 30/01/2016.
- */
 public class BluetoothService extends Service {
     public int counter = 0;
     long oldTime = 0;
