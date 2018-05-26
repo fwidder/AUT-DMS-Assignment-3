@@ -24,9 +24,6 @@ import java.util.UUID;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
-/**
- * Liandri  wjm2202 glen osborne 14852903
- */
 public class BluetoothService extends Service {
     public int counter = 0;
     long oldTime = 0;

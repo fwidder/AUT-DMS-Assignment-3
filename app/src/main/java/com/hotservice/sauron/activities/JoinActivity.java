@@ -12,21 +12,33 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.model.messages.AbstractMessage;
+import com.hotservice.sauron.utils.MessageHelper;
 
+/**
+ * Activity to join a group
+ */
 public class JoinActivity extends AppCompatActivity {
 
-    private Button qr;
-    private Button nfc;
+    private Button scanQR;
+    private Button scanNFC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_join);                                // set view to layout
+
+        //Set layout
+        setContentView(R.layout.content_join);
+
+        //Set context variables
         Toolbar toolbar = findViewById(R.id.toolbar);
+        scanQR = findViewById(R.id.selectScan);
+        scanNFC = findViewById(R.id.selectNFC);
+
         setSupportActionBar(toolbar);
-        qr = findViewById(R.id.selectScan);
-        nfc = findViewById(R.id.selectNFC);
-        qr.setOnClickListener(new View.OnClickListener() {
+
+        //Set button listeners
+        scanQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openQrActivity();
@@ -37,16 +49,21 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Get the intent
         Intent intent = getIntent();
+
+        //Look up if intent is okay
         if (intent != null && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             Parcelable[] rawMessages =
                     intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             if (rawMessages != null) {
                 for (Parcelable rawMsg : rawMessages) {
+                    //Parse payload
                     NdefMessage message = (NdefMessage) rawMsg;
-                    String s = new String(message.getRecords()[0].getPayload());
+                    AbstractMessage m = new MessageHelper().toMessage(message.getRecords()[0].getPayload());
                     //TODO: Do NFC Action
-                    Toast.makeText(this, s,
+                    Toast.makeText(this, m.toString(),
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -54,6 +71,9 @@ public class JoinActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the QR-Code scan activity
+     */
     public void openQrActivity() {
         Intent intent = new Intent(this, QRscanActivity.class);
         startActivity(intent);

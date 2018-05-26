@@ -100,8 +100,10 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
 
 
         mBluetoothService = new BluetoothService(getCtx());
+
 /*        mServiceIntent = new Intent(getCtx(), mBluetoothService.getClass());
         if (!isMyServiceRunning(mBluetoothService.getClass())) {
+
             Log.d("Bluetooth Service", "Starting Service");
             startService(mServiceIntent);
         } */
@@ -115,9 +117,11 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         mBluetoothConnection.startClient(device,uuid);
     }
 
+
   /*  private boolean isMyServiceRunning(Class<?> serviceClass) {
+
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+        for (ActivityManager.RunningServiceInfo service : Objects.requireNonNull(manager).getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 Log.d("Bluetooth Service", "running: " + true + "");
                 return true;

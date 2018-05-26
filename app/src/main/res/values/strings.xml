@@ -22,6 +22,8 @@
     <string name="joingroup">Join Group</string>
     <string name="profile">Hot Profile</string>
     <string name="name">Name</string>
+    <string name="scan">Scan</string>
+    <string name="nfc">NFC</string>
     <string name="phonenum">Phone Number</string>
     <string name="phone">Phone/string></string>
     <string name="utxt">Unlimited TXT</string>
@@ -44,6 +46,7 @@
     <string name="title_activity_qrscan">QRscanActivity</string>
     <string name="title_activity_nfcscan">NFCscanActivity</string>
     <string name="title_activity_picture">PictureActivity</string>
+    <string name="btSave">Save</string>
 
 
 </resources>

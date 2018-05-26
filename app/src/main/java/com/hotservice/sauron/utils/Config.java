@@ -2,13 +2,48 @@ package com.hotservice.sauron.utils;
 
 import android.Manifest;
 
+import com.google.android.gms.maps.model.LatLng;
+
+/**
+ * Global configurations
+ */
 public class Config {
 
-    public static final String SMS_HEAD = "|SAURON|";
+    /**
+     * Unique User ID
+     */
+    public static final String USER_ID;
 
+    /**
+     * Global Bluetooth Pin
+     */
+    public static final int BLUETOOTH_PIN;
+
+    /**
+     * Head for discovering related SMS messages
+     */
+    public static final String SMS_HEAD;
+
+    /**
+     * Needed permissions (Has to be same as in AndroidManifest.xml
+     */
     public static final String[] PERMISSIONS;
+    public static LatLng REALLY_POINT = new LatLng(0, 0);
+
+    /**
+     * Saves state of the App (Group creator or group client)
+     */
+    public static boolean CREATOR;
 
     static {
+        CREATOR = false;
+
+        USER_ID = StringTools.getRandomString(32);
+
+        BLUETOOTH_PIN = 2968;
+
+        SMS_HEAD = "|SAURON|";
+
         PERMISSIONS = new String[]{
                 Manifest.permission.SEND_SMS,
                 Manifest.permission.READ_SMS,

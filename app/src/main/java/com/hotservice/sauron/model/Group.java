@@ -1,6 +1,6 @@
 package com.hotservice.sauron.model;
 
-import com.google.gson.Gson;
+import com.hotservice.sauron.utils.Config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,13 +8,18 @@ import java.util.List;
 
 public class Group {
     private static Group me;
-    private List<User> users;
+    private final List<User> users;
 
     private Group() {
         users = Collections.synchronizedList(new ArrayList<User>());
     }
 
-    public synchronized Group getInstance() {
+    /**
+     * Instance of the class (Singleton)
+     *
+     * @return Group instance
+     */
+    public static synchronized Group getInstance() {
         if (me == null)
             me = new Group();
         else
@@ -22,23 +27,27 @@ public class Group {
         return getInstance();
     }
 
+    /**
+     * get user list
+     *
+     * @return list of all users
+     */
     public synchronized List<User> getUserList() {
         return users;
     }
 
-    public String userListToJson() {
-        Gson gson = new Gson();
 
-        return gson.toJson(getUserList());
-    }
-
-    public void importJsonToList(String json) {
-        Gson gson = new Gson();
-        ArrayList tmp = gson.fromJson(json, ArrayList.class);
-        getUserList().clear();
-        for (Object o : tmp) {
-            User u = (User) o;
-            getUserList().add(u);
+    /**
+     * get current user
+     *
+     * @return own user object
+     * @throws Exception when current user can not be found
+     */
+    public synchronized User getMe() throws Exception {
+        for (User u : getUserList()) {
+            if (u.getID().equals(Config.USER_ID))
+                return u;
         }
+        throw new Exception("Can't find User. Start PANIC-Protocol...");
     }
 }
