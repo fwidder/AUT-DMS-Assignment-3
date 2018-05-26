@@ -2,6 +2,8 @@ package com.hotservice.sauron.utils;
 
 import android.Manifest;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Global configurations
  */
@@ -26,6 +28,7 @@ public class Config {
      * Needed permissions (Has to be same as in AndroidManifest.xml
      */
     public static final String[] PERMISSIONS;
+    public static LatLng REALLY_POINT = new LatLng(0, 0);
 
     /**
      * Saves state of the App (Group creator or group client)

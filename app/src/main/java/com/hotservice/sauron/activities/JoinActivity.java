@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.model.messages.AbstractMessage;
+import com.hotservice.sauron.utils.MessageHelper;
 
 /**
  * Activity to join a group
@@ -25,13 +27,14 @@ public class JoinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Set layout
+        setContentView(R.layout.content_join);
+
         //Set context variables
         Toolbar toolbar = findViewById(R.id.toolbar);
         scanQR = findViewById(R.id.selectScan);
         scanNFC = findViewById(R.id.selectNFC);
 
-        //Set layout
-        setContentView(R.layout.content_join);
         setSupportActionBar(toolbar);
 
         //Set button listeners
@@ -58,9 +61,9 @@ public class JoinActivity extends AppCompatActivity {
                 for (Parcelable rawMsg : rawMessages) {
                     //Parse payload
                     NdefMessage message = (NdefMessage) rawMsg;
-                    String s = new String(message.getRecords()[0].getPayload());
+                    AbstractMessage m = new MessageHelper().toMessage(message.getRecords()[0].getPayload());
                     //TODO: Do NFC Action
-                    Toast.makeText(this, s,
+                    Toast.makeText(this, m.toString(),
                             Toast.LENGTH_SHORT).show();
                 }
             }

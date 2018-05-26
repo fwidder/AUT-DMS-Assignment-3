@@ -36,6 +36,7 @@ public class Group {
         return users;
     }
 
+
     /**
      * get current user
      *
