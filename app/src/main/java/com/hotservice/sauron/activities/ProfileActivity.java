@@ -20,6 +20,7 @@ import com.hotservice.sauron.R;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -45,9 +46,8 @@ public class ProfileActivity extends AppCompatActivity {
         matrix.postScale(scaleWidth, scaleHeight);
 
         // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
 
-        return resizedBitmap;
+        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
     }
 
     @Override
@@ -86,18 +86,17 @@ public class ProfileActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             InputStream in;
             try {
-                in = getContentResolver().openInputStream(imageUri);
+                in = getContentResolver().openInputStream(Objects.requireNonNull(imageUri));
                 Bitmap photo = BitmapFactory.decodeStream(in);
                 getSizes(photo);
-                //profilePic.setImageBitmap(squareBitmap(photo));
-                profilePic.setImageBitmap(xxhdpi);
+                profilePic.setImageBitmap(xxxhdpi);
             } catch (FileNotFoundException e) {
                 Toast.makeText(this, "Unable to load picture", Toast.LENGTH_LONG).show();
             }
         }
         if (requestCode == TAKE_PICTURE) {
             Bundle extras = data.getExtras();
-            Bitmap photoBitmap = (Bitmap) extras.get("data");
+            Bitmap photoBitmap = (Bitmap) Objects.requireNonNull(extras).get("data");
             getSizes(photoBitmap);
             profilePic.setImageBitmap(xxhdpi);
         }
@@ -116,9 +115,8 @@ public class ProfileActivity extends AppCompatActivity {
     public Bitmap squareBitmap(Bitmap bm) {
         int width = bm.getWidth();
         int height = bm.getHeight();
-        Bitmap squareBitmap = Bitmap.createBitmap(
+        return Bitmap.createBitmap(
                 bm, 0, (height - width) / 2, width, width);
-        return squareBitmap;
     }
 
 
