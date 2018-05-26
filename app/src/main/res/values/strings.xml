@@ -46,6 +46,7 @@
     <string name="title_activity_qrscan">QRscanActivity</string>
     <string name="title_activity_nfcscan">NFCscanActivity</string>
     <string name="title_activity_picture">PictureActivity</string>
+    <string name="btSave">Save</string>
 
 
 </resources>
