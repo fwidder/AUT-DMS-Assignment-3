@@ -19,8 +19,9 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
-import com.hotservice.sauron.model.messages.NfcMessage;
+import com.hotservice.sauron.model.messages.AbstractMessage;
 import com.hotservice.sauron.utils.Config;
+import com.hotservice.sauron.utils.NfcMessageWrapper;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 /**
@@ -36,14 +37,15 @@ public class CreateGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Set layout
+        setContentView(R.layout.activity_create_group);
+
         // Set context variables
         Toolbar toolbar = findViewById(R.id.toolbar);
         nameBox = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
         saveButton = this.findViewById(R.id.saveButton);
 
-        // Set layout
-        setContentView(R.layout.activity_create_group);
         setSupportActionBar(toolbar);
 
         // Set button actions
@@ -77,7 +79,7 @@ public class CreateGroupActivity extends AppCompatActivity {
      */
     private void startNFC() {
         NfcAdapter nfcAdapter;
-        NfcMessage message;
+        NfcMessageWrapper message;
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         PackageManager pm = this.getPackageManager();
         if (!pm.hasSystemFeature(PackageManager.FEATURE_NFC)) {
@@ -94,7 +96,8 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         //TODO: Create Message
 
-        message = new NfcMessage("TestMe");
+        message = new NfcMessageWrapper(new AbstractMessage() {
+        });
 
         nfcAdapter.setNdefPushMessageCallback(message, this);
     }

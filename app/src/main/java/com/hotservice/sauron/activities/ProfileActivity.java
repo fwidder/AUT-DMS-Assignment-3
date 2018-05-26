@@ -1,6 +1,5 @@
 package com.hotservice.sauron.activities;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -35,6 +33,22 @@ public class ProfileActivity extends AppCompatActivity {
     private Bitmap xhdpi;
     private Bitmap xxhdpi;
     private Bitmap xxxhdpi;
+
+    public static Bitmap scaleBitmap(Bitmap bm, int side) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) side) / width;
+        float scaleHeight = ((float) side) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,26 +117,9 @@ public class ProfileActivity extends AppCompatActivity {
         int width = bm.getWidth();
         int height = bm.getHeight();
         Bitmap squareBitmap = Bitmap.createBitmap(
-                bm, 0, (height-width)/2, width, width);
+                bm, 0, (height - width) / 2, width, width);
         return squareBitmap;
     }
-
-    public static Bitmap scaleBitmap(Bitmap bm, int side) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) side) / width;
-        float scaleHeight = ((float) side) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-
-        return resizedBitmap;
-    }
-
 
 
 }

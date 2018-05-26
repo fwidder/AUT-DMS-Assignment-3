@@ -10,6 +10,8 @@ import android.util.Log;
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.service.BluetoothService;
 
+import java.util.Objects;
+
 public class BlueToothActivity extends AppCompatActivity {
     private Intent mServiceIntent;
     private Context ctx;
@@ -35,7 +37,7 @@ public class BlueToothActivity extends AppCompatActivity {
 
     private boolean isServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+        for (ActivityManager.RunningServiceInfo service : Objects.requireNonNull(manager).getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 Log.d("Bluetooth Service", "running: " + true + "");
                 return true;
