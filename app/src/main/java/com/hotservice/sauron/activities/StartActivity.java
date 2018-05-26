@@ -20,6 +20,7 @@ public class StartActivity extends AppCompatActivity {
     private Button create;
     private Button join;
     private Button profile;
+    private Button bluetooth;
     private RequestPermissionHandler mRequestPermissionHandler;
 
     @Override
@@ -61,7 +62,13 @@ public class StartActivity extends AppCompatActivity {
                 openCreateActivity();
             }
         });
-        //Get permissions
+        bluetooth = findViewById(R.id.blue);
+        bluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBlueToothActivity();
+            }
+        });
         loadPermissions();
     }
 
@@ -113,6 +120,11 @@ public class StartActivity extends AppCompatActivity {
 
     public void openProfileActivity() {
         Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    public void openBlueToothActivity() {
+        Intent intent = new Intent(this, BlueToothActivity.class);
         startActivity(intent);
     }
 }
