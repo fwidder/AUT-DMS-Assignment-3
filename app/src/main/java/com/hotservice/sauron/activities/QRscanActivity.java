@@ -21,12 +21,12 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Set layout
-        setContentView(scannerView);
-
         //Set context variables
         scannerView = new ZXingScannerView(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+        //Set layout
+        setContentView(scannerView);
 
         setSupportActionBar(toolbar);
 
