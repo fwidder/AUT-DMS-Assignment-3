@@ -36,6 +36,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Config.CREATOR = true;
 
         // Set layout
         setContentView(R.layout.activity_create_group);

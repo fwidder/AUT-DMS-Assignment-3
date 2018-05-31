@@ -8,14 +8,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-public class BluetoothConnection extends Thread{
+public class BluetoothConnection extends Thread {
+    // Unique UUID for this application, you may use different
+    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
     byte[] buffer;
-
-    // Unique UUID for this application, you may use different
-    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
 
     public BluetoothConnection(BluetoothDevice device) {
 
@@ -30,7 +29,7 @@ public class BluetoothConnection extends Thread{
         mmSocket = tmp;
 
         //now make the socket connection in separate thread to avoid FC
-        Thread connectionThread  = new Thread(new Runnable() {
+        Thread connectionThread = new Thread(new Runnable() {
 
             @Override
             public void run() {

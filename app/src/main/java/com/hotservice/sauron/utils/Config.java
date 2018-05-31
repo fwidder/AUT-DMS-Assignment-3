@@ -13,36 +13,47 @@ public class Config {
      * Unique User ID
      */
     public static final String USER_ID;
-
+    public static final long VIBRATION_TIME;
     /**
      * Global Bluetooth Pin
      */
     public static final int BLUETOOTH_PIN;
-
     /**
      * Head for discovering related SMS messages
      */
     public static final String SMS_HEAD;
-
     /**
      * Needed permissions (Has to be same as in AndroidManifest.xml
      */
     public static final String[] PERMISSIONS;
-    public static LatLng REALLY_POINT = new LatLng(0, 0);
+    public static final String SMS_DIV;
+    /**
+     * Unique User ID
+     */
+    public static boolean ALERT_MODE;
+    public static LatLng REALLY_POINT;
 
     /**
      * Saves state of the App (Group creator or group client)
      */
-    public static boolean CREATOR;
+    public static Boolean CREATOR;
 
     static {
-        CREATOR = false;
+        CREATOR = null;
+
+        ALERT_MODE = false;
+
+        SMS_DIV = "*";
+
+        VIBRATION_TIME = 2000;
+
+        REALLY_POINT = new LatLng(-36.848461, 174.763336);
 
         USER_ID = StringTools.getRandomString(32);
 
         BLUETOOTH_PIN = 2968;
 
-        SMS_HEAD = "|SAURON|";
+        SMS_HEAD = "*SAURON*";
 
         PERMISSIONS = new String[]{
                 Manifest.permission.SEND_SMS,
@@ -65,7 +76,9 @@ public class Config {
                 Manifest.permission.CAMERA,
 
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+
+                Manifest.permission.VIBRATE
         };
     }
 }

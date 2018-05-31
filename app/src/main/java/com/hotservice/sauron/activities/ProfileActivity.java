@@ -1,5 +1,6 @@
 package com.hotservice.sauron.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,13 +13,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.model.Group;
+import com.hotservice.sauron.utils.UserHelper;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Objects;
 
@@ -59,7 +67,66 @@ public class ProfileActivity extends AppCompatActivity {
         profilePic = findViewById(R.id.profilePic);
         newPic = findViewById(R.id.newPic);
         selectPic = findViewById(R.id.selectPic);
+        Button btSave = findViewById(R.id.SaveProfile);
+        btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Group.getInstance().getMe().setMobileNumber(((EditText) findViewById((R.id.phoneNum))).getText().toString());
+                    Group.getInstance().getMe().setName(((EditText) findViewById((R.id.editName))).getText().toString());
+                    Group.getInstance().getMe().setSmsState(((Switch) findViewById(R.id.UnlimitedSwitch)).isChecked());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String filename = "sauron.config";
+                FileOutputStream outputStream;
+                try {
+                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                    outputStream.write(new UserHelper().toBytes(Group.getInstance().getMe()));
+                    outputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                filename = "sauron.picture";
+                try {
+                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    xxxhdpi.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    outputStream.write(byteArray);
+                    outputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(ProfileActivity.this, StartActivity.class);
+                startActivity(intent);
+            }
+        });
 
+
+        try {
+            ((EditText) findViewById((R.id.phoneNum))).setText(Group.getInstance().getMe().getMobileNumber());
+            ((EditText) findViewById((R.id.editName))).setText(Group.getInstance().getMe().getName());
+            ((Switch) findViewById((R.id.UnlimitedSwitch))).setChecked(Group.getInstance().getMe().getSmsState());
+            String filename = "sauron.picture";
+            FileInputStream inputStream;
+            byte[] targetArray = null;
+            try {
+                inputStream = openFileInput(filename);
+                targetArray = new byte[inputStream.available()];
+                inputStream.read(targetArray);
+                inputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Bitmap bitmap = null;
+            if (targetArray != null && targetArray.length > 0)
+                bitmap = BitmapFactory.decodeByteArray(targetArray, 0, targetArray.length);
+            if (bitmap != null)
+                ((ImageView) findViewById(R.id.profilePic)).setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClick(View v) {
