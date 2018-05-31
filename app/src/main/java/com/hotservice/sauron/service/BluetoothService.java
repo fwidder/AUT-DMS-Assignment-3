@@ -61,7 +61,7 @@ public class BluetoothService extends Service {
     }
 
     public void startClient(BluetoothDevice device, UUID uuid) {
-        mProgressDialog = ProgressDialog.show(context, " Connecting BlueTooth", "Please Wait...", true);
+        // mProgressDialog = ProgressDialog.show(this, " Connecting BlueTooth", "Please Wait...", true);
         mConnectThread = new ConnectThread(device, uuid);
         mConnectThread.start();
     }
@@ -132,6 +132,10 @@ public class BluetoothService extends Service {
         return null;
     }
 
+    public void cancel() {
+        mConnectThread.cancel();
+    }
+
     private class AcceptThread extends Thread {
         private final BluetoothServerSocket mmServerSocket;
 
@@ -184,25 +188,25 @@ public class BluetoothService extends Service {
             Log.i("RUN", "Connect thread");
             try {
                 Log.i("RUN", "Trying to create a socket using UUID: " + MY_UUID);
-                tmp = mmDevice.createRfcommSocketToServiceRecord(deviceUUID);
+                tmp = mBlueToothAdapter.listenUsingInsecureRfcommWithServiceRecord(null, MY_UUID).accept();
+                mmSocket = tmp;
+                mBlueToothAdapter.cancelDiscovery();
+                try {
+                    mmSocket.connect();
+                    Log.i("RUN", "Connect thread connected to: " + MY_UUID);
+                } catch (IOException e) {
+                    try {
+                        mmSocket.close();
+                        Log.i("RUN", "Close socket to: " + MY_UUID);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    Log.i("RUN", "Cant connect to: " + MY_UUID);
+                }
+                connected(mmSocket, mmDevice);
             } catch (IOException e) {
                 Log.i("RUN", "Failed to create a socket using UUID: " + MY_UUID);
             }
-            mmSocket = tmp;
-            mBlueToothAdapter.cancelDiscovery();
-            try {
-                mmSocket.connect();
-                Log.i("RUN", "Connect thread connected to: " + MY_UUID);
-            } catch (IOException e) {
-                try {
-                    mmSocket.close();
-                    Log.i("RUN", "Close socket to: " + MY_UUID);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                Log.i("RUN", "Cant connect to: " + MY_UUID);
-            }
-            connected(mmSocket, mmDevice);
         }
 
         public void cancel() {
@@ -225,11 +229,11 @@ public class BluetoothService extends Service {
             InputStream tempIn = null;
             OutputStream tempOut = null;
 
-            try {
-                mProgressDialog.dismiss();
-            } catch (NullPointerException np) {
-                np.printStackTrace();
-            }
+            // try {
+            //     mProgressDialog.dismiss();
+            // } catch (NullPointerException np) {
+            //     np.printStackTrace();
+            // }
             try {
                 tempIn = mmSocket.getInputStream();
                 tempOut = mmSocket.getOutputStream();
@@ -245,6 +249,8 @@ public class BluetoothService extends Service {
             int bytes;
             byte[] targetArray = null;
             try {
+                while (mmInStream.available() <= 0)
+                    ;
                 targetArray = new byte[mmInStream.available()];
                 //noinspection ResultOfMethodCallIgnored
                 mmInStream.read(targetArray);

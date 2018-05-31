@@ -38,6 +38,9 @@ import java.util.UUID;
  */
 public class CreateGroupActivity extends AppCompatActivity {
 
+    private static final UUID MY_UUID = UUID.randomUUID();
+    private static BluetoothService mBluetoothService;
+
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -65,13 +68,11 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         }
     };
+    BluetoothAdapter mBlueToothAdapter;
+    BluetoothService mBluetoothConnection;
     private Button saveButton;
     private EditText nameBox;
     private ImageView imageView;
-    BluetoothAdapter mBlueToothAdapter;
-    private static BluetoothService mBluetoothService;
-    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
-    BluetoothService mBluetoothConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,18 @@ public class CreateGroupActivity extends AppCompatActivity {
         nameBox = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
         saveButton = this.findViewById(R.id.saveButton);
+        Button btAdd = (Button) findViewById(R.id.addDevice);
+        btAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //mBluetoothService.cancel();
+                unregisterReceiver(mBroadcastReceiver);
+                mBlueToothAdapter = BluetoothAdapter.getDefaultAdapter();
+                mBluetoothService = new BluetoothService(CreateGroupActivity.this);
+                startConnection();
+                enableDiscoveable();
+            }
+        });
         startConnection();
 
         setSupportActionBar(toolbar);
@@ -147,34 +160,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         nfcAdapter.setNdefPushMessageCallback(message, this);
     }
 
-    private final BroadcastReceiver mBroadcastReceiver2 = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            if (action.equals(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED)) {
-                int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
-
-                switch (mode) {
-                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE:
-                        Log.d("mBroadcastReciever", "Discovery Enabled");
-                        break;
-                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE:
-                        Log.d("mBroadcastReciever", "Discovery Disabled Able to receive connections");
-                        break;
-                    case BluetoothAdapter.SCAN_MODE_NONE:
-                        Log.d("mBroadcastReciever", "Discovery Disabled Unable to receive connections");
-                        break;
-                    case BluetoothAdapter.STATE_CONNECTING:
-                        Log.d("mBroadcastReciever", "Connecting.....");
-                        break;
-                    case BluetoothAdapter.STATE_CONNECTED:
-                        Log.d("mBroadcastReciever", "Connected.");
-                        break;
-                }
-            }
-        }
-    };
-
     public void enableDiscoveable() {
         Log.d("enanble bluetooth", "Making discoverable for 300 seconds");
 
@@ -183,7 +168,13 @@ public class CreateGroupActivity extends AppCompatActivity {
         startActivity(discoverableIntent);
 
         IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
-        registerReceiver(mBroadcastReceiver2, intentFilter);
+        registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
     }
 
     public void startConnection() {
