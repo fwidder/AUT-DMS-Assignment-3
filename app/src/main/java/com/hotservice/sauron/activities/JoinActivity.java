@@ -35,7 +35,6 @@ public class JoinActivity extends AppCompatActivity {
         //Set context variables
         Toolbar toolbar = findViewById(R.id.toolbar);
         scanQR = findViewById(R.id.selectScan);
-        scanNFC = findViewById(R.id.selectNFC);
 
         setSupportActionBar(toolbar);
 
