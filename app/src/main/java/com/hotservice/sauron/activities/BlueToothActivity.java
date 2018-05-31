@@ -23,7 +23,6 @@ import com.hotservice.sauron.service.BluetoothService;
 import com.hotservice.sauron.service.DeviceListAdapter;
 import com.hotservice.sauron.utils.MessageHelper;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.UUID;
 

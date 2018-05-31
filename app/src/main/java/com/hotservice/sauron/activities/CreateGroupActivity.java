@@ -38,6 +38,33 @@ import java.util.UUID;
  */
 public class CreateGroupActivity extends AppCompatActivity {
 
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (action.equals(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED)) {
+                int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
+
+                switch (mode) {
+                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE:
+                        Log.d("mBroadcastReciever", "Discovery Enabled");
+                        break;
+                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE:
+                        Log.d("mBroadcastReciever", "Discovery Disabled Able to receive connections");
+                        break;
+                    case BluetoothAdapter.SCAN_MODE_NONE:
+                        Log.d("mBroadcastReciever", "Discovery Disabled Unable to receive connections");
+                        break;
+                    case BluetoothAdapter.STATE_CONNECTING:
+                        Log.d("mBroadcastReciever", "Connecting.....");
+                        break;
+                    case BluetoothAdapter.STATE_CONNECTED:
+                        Log.d("mBroadcastReciever", "Connected.");
+                        break;
+                }
+            }
+        }
+    };
     private Button saveButton;
     private EditText nameBox;
     private ImageView imageView;
@@ -90,8 +117,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                 enableDiscoveable();
             }
         });
-
-
     }
 
     /**
@@ -132,7 +157,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
         registerReceiver(mBroadcastReceiver, intentFilter);
     }
-
+  
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
