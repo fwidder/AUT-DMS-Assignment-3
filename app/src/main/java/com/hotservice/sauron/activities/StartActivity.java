@@ -88,12 +88,12 @@ public class StartActivity extends AppCompatActivity {
                 openCreateActivity();
             }
         });
-        if(Config.CREATOR != null)
-        if (Config.CREATOR ) {
-            join.setEnabled(false);
-        } else if (!Config.CREATOR) {
-            create.setEnabled(false);
-        }
+        if (Config.CREATOR != null)
+            if (Config.CREATOR) {
+                join.setEnabled(false);
+            } else if (!Config.CREATOR) {
+                create.setEnabled(false);
+            }
 
         loadPermissions();
     }
