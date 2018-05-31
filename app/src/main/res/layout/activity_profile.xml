@@ -21,7 +21,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/include"
         layout="@layout/content_profile"
         app:layout_anchor="@+id/newPic"
         app:layout_anchorGravity="left|center" />

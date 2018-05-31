@@ -114,6 +114,7 @@ public class ProfileActivity extends AppCompatActivity {
             try {
                 inputStream = openFileInput(filename);
                 targetArray = new byte[inputStream.available()];
+                //noinspection ResultOfMethodCallIgnored
                 inputStream.read(targetArray);
                 inputStream.close();
             } catch (Exception e) {
@@ -182,6 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
     public Bitmap squareBitmap(Bitmap bm) {
         int width = bm.getWidth();
         int height = bm.getHeight();
+        //noinspection SuspiciousNameCombination
         return Bitmap.createBitmap(
                 bm, 0, (height - width) / 2, width, width);
     }

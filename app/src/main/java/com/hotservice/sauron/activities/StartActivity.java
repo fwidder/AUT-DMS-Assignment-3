@@ -38,6 +38,7 @@ public class StartActivity extends AppCompatActivity {
         try {
             inputStream = openFileInput(filename);
             targetArray = new byte[inputStream.available()];
+            //noinspection ResultOfMethodCallIgnored
             inputStream.read(targetArray);
             inputStream.close();
         } catch (Exception e) {
@@ -46,7 +47,7 @@ public class StartActivity extends AppCompatActivity {
 
         User u;
         if (targetArray != null && targetArray.length > 0)
-            u = new UserHelper().toMessage(targetArray);
+            u = new UserHelper().toUser(targetArray);
         else
             u = new User();
         Log.d("User", u.toString());
@@ -88,11 +89,9 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        if (Config.CREATOR == null) {
-            //
-        } else if (Config.CREATOR == true) {
+        if (Config.CREATOR) {
             join.setEnabled(false);
-        } else if (Config.CREATOR == false) {
+        } else if (!Config.CREATOR) {
             create.setEnabled(false);
         }
 

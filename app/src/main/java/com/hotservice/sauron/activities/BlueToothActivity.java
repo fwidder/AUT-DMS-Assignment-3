@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -210,7 +209,7 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
         startActivity(discoverableIntent);
 
-        IntentFilter intentFilter = new IntentFilter(mBlueToothAdapter.ACTION_SCAN_MODE_CHANGED);
+        IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
         registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
@@ -235,14 +234,10 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
     }
 
     private void checkPermissions() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            int permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
-            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
-            if (permissionCheck != 0) {
-                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
-            }
-        } else {
-            Log.d("checkBTPermissions", "SDK Version < Lollipop");
+        int permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
+        permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
+        if (permissionCheck != 0) {
+            this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
         }
     }
 
@@ -253,11 +248,9 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         String deviceName = mBTDevices.get(i).getName();
         String deviceAdress = mBTDevices.get(i).getAddress();
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.d("pairing with: ", "name: " + deviceName + " : " + deviceAdress);
-            mBTDevices.get(i).createBond();
-            mBTDevice = mBTDevices.get(i);
-            mBluetoothConnection = new BluetoothService(BlueToothActivity.this);
-        }
+        Log.d("pairing with: ", "name: " + deviceName + " : " + deviceAdress);
+        mBTDevices.get(i).createBond();
+        mBTDevice = mBTDevices.get(i);
+        mBluetoothConnection = new BluetoothService(BlueToothActivity.this);
     }
 }

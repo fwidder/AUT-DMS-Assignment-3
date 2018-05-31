@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.hotservice.sauron.activities.MapActivity;
 import com.hotservice.sauron.utils.Config;
 
+import java.util.Objects;
+
 /**
  * Listens to SMS messages and processes messages wich are in cotext with the app
  * Filter using Config.SMS_HEAD
@@ -49,9 +51,9 @@ public class SmsService extends BroadcastReceiver {
                         //Vibrate
                         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            v.vibrate(VibrationEffect.createOneShot(Config.VIBRATION_TIME, VibrationEffect.DEFAULT_AMPLITUDE));
+                            Objects.requireNonNull(v).vibrate(VibrationEffect.createOneShot(Config.VIBRATION_TIME, VibrationEffect.DEFAULT_AMPLITUDE));
                         } else {
-                            v.vibrate(Config.VIBRATION_TIME);
+                            Objects.requireNonNull(v).vibrate(Config.VIBRATION_TIME);
                         }
 
                         //PopUp

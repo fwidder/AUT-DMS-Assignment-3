@@ -15,7 +15,7 @@ import java.io.ObjectOutputStream;
 public class UserHelper {
     public byte[] toBytes(User m) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
+        ObjectOutput out;
         try {
             out = new ObjectOutputStream(bos);
             out.writeObject(m);
@@ -34,15 +34,13 @@ public class UserHelper {
         return null;
     }
 
-    public User toMessage(byte[] b) {
+    public User toUser(byte[] b) {
         ByteArrayInputStream bis = new ByteArrayInputStream(b);
         ObjectInput in = null;
         try {
             in = new ObjectInputStream(bis);
             return (User) in.readObject();
-        } catch (IOException e) {
-            Log.d(this.getClass().getSimpleName(), e.toString());
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             Log.d(this.getClass().getSimpleName(), e.toString());
         } finally {
             try {
