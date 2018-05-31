@@ -254,8 +254,8 @@ public class BluetoothService extends Service {
         }
 
         public void write(byte[] bytes) {
-            String text = new String(bytes, Charset.defaultCharset());
-            Log.i("sending", "msg: " + text);
+            //String text = new String(bytes, Charset.defaultCharset());
+            //Log.i("sending", "msg: " + text);
             try {
                 mmOutStream.write(bytes);
             } catch (IOException e) {
