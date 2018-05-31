@@ -12,6 +12,9 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.hotservice.sauron.model.messages.BluetoothMessage;
+import com.hotservice.sauron.utils.MessageHelper;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -241,15 +244,15 @@ public class BluetoothService extends Service {
         public void run() {
             byte[] buffer = new byte[1024];
             int bytes;
-            while (true) {
-                try {
-                    bytes = mmInStream.read(buffer);
-                    String incomingMessage = new String(buffer, 0, bytes);
-                    Log.i("IN message", "" + incomingMessage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    break;
-                }
+            byte[] targetArray = null;
+            try {
+                targetArray = new byte[mmInStream.available()];
+                //noinspection ResultOfMethodCallIgnored
+                mmInStream.read(targetArray);
+                BluetoothMessage m = (BluetoothMessage) new MessageHelper().toMessage(targetArray);
+                Log.i("IN message", m.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
