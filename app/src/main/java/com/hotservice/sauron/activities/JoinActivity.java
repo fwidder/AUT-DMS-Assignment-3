@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.model.messages.AbstractMessage;
+import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.MessageHelper;
 
 /**
@@ -26,6 +27,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Config.CREATOR = false;
 
         //Set layout
         setContentView(R.layout.content_join);

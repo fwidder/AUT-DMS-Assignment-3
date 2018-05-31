@@ -14,6 +14,9 @@ import com.hotservice.sauron.model.Group;
 import com.hotservice.sauron.model.User;
 import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.RequestPermissionHandler;
+import com.hotservice.sauron.utils.UserHelper;
+
+import java.io.FileInputStream;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -28,9 +31,31 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Start Set User
-        User u = new User();
+
+        String filename = "sauron.config";
+        FileInputStream inputStream;
+        byte[] targetArray = null;
+        try {
+            inputStream = openFileInput(filename);
+            targetArray = new byte[inputStream.available()];
+            inputStream.read(targetArray);
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        User u;
+        if (targetArray != null && targetArray.length > 0)
+            u = new UserHelper().toMessage(targetArray);
+        else
+            u = new User();
+        Log.d("User", u.toString());
         u.setID(Config.USER_ID);
-        Group.getInstance().getUserList().add(u);
+        try {
+            Group.getInstance().getMe();
+        } catch (Exception e) {
+            Group.getInstance().getUserList().add(u);
+        }
         Log.d("User ID", Config.USER_ID);
         //End Set User
 
@@ -62,6 +87,15 @@ public class StartActivity extends AppCompatActivity {
                 openCreateActivity();
             }
         });
+
+        if (Config.CREATOR == null) {
+            //
+        } else if (Config.CREATOR == true) {
+            join.setEnabled(false);
+        } else if (Config.CREATOR == false) {
+            create.setEnabled(false);
+        }
+
         loadPermissions();
     }
 
@@ -112,7 +146,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void openProfileActivity() {
-        Intent intent = new Intent(this, BlueToothActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 }
