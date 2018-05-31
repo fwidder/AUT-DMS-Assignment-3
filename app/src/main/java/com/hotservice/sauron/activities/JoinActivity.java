@@ -1,12 +1,17 @@
 package com.hotservice.sauron.activities;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -80,4 +85,6 @@ public class JoinActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QRscanActivity.class);
         startActivity(intent);
     }
+
+
 }

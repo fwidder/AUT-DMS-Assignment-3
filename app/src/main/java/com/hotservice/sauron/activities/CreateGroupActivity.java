@@ -1,6 +1,10 @@
 package com.hotservice.sauron.activities;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.nfc.NfcAdapter;
@@ -8,6 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,8 +75,11 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 //Start NFC-Sending
                 startNFC();
+
+                enableDiscoveable();
             }
         });
+
 
     }
 
@@ -103,4 +111,42 @@ public class CreateGroupActivity extends AppCompatActivity {
         nfcAdapter.setNdefPushMessageCallback(message, this);
     }
 
+    public void enableDiscoveable() {
+        Log.d("enanble bluetooth", "Making discoverable for 300 seconds");
+
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+        startActivity(discoverableIntent);
+
+        IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
+        registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (action.equals(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED)) {
+                int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
+
+                switch (mode) {
+                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE:
+                        Log.d("mBroadcastReciever", "Discovery Enabled");
+                        break;
+                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE:
+                        Log.d("mBroadcastReciever", "Discovery Disabled Able to receive connections");
+                        break;
+                    case BluetoothAdapter.SCAN_MODE_NONE:
+                        Log.d("mBroadcastReciever", "Discovery Disabled Unable to receive connections");
+                        break;
+                    case BluetoothAdapter.STATE_CONNECTING:
+                        Log.d("mBroadcastReciever", "Connecting.....");
+                        break;
+                    case BluetoothAdapter.STATE_CONNECTED:
+                        Log.d("mBroadcastReciever", "Connected.");
+                        break;
+                }
+            }
+        }
+    };
 }
