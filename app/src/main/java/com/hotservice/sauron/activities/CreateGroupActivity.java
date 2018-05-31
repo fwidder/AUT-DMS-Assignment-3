@@ -147,18 +147,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         nfcAdapter.setNdefPushMessageCallback(message, this);
     }
 
-    public void enableDiscoveable() {
-        Log.d("enanble bluetooth", "Making discoverable for 300 seconds");
-
-        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-        startActivity(discoverableIntent);
-
-        IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
-        registerReceiver(mBroadcastReceiver, intentFilter);
-    }
-  
-    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mBroadcastReceiver2 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
@@ -185,6 +174,17 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void enableDiscoveable() {
+        Log.d("enanble bluetooth", "Making discoverable for 300 seconds");
+
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+        startActivity(discoverableIntent);
+
+        IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
+        registerReceiver(mBroadcastReceiver2, intentFilter);
+    }
 
     public void startConnection() {
         startBTConnection(null, MY_UUID);           //  server dosnt neeed a device to listen for?
