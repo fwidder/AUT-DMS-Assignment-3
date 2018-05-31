@@ -18,7 +18,6 @@ import com.hotservice.sauron.utils.MessageHelper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
