@@ -28,7 +28,6 @@
         app:layout_constraintVertical_bias="0.082" />
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -60,7 +59,6 @@
         app:layout_constraintVertical_bias="0.214" />
 
     <Button
-        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -91,7 +89,6 @@
         app:srcCompat="@android:drawable/editbox_dropdown_light_frame" />
 
     <EditText
-        android:id="@+id/membersList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -109,7 +106,6 @@
         app:layout_constraintVertical_bias="0.873" />
 
     <TextView
-        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

@@ -15,7 +15,7 @@ import java.io.ObjectOutputStream;
 public class MessageHelper {
     public byte[] toBytes(AbstractMessage m) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
+        ObjectOutput out;
         try {
             out = new ObjectOutputStream(bos);
             out.writeObject(m);
@@ -40,9 +40,7 @@ public class MessageHelper {
         try {
             in = new ObjectInputStream(bis);
             return (AbstractMessage) in.readObject();
-        } catch (IOException e) {
-            Log.d(this.getClass().getSimpleName(), e.toString());
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             Log.d(this.getClass().getSimpleName(), e.toString());
         } finally {
             try {
