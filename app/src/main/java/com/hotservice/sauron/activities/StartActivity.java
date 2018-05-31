@@ -88,7 +88,6 @@ public class StartActivity extends AppCompatActivity {
                 openCreateActivity();
             }
         });
-
         if (Config.CREATOR != null)
             if (Config.CREATOR) {
                 join.setEnabled(false);
