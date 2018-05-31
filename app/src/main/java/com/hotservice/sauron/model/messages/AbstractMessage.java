@@ -1,4 +1,7 @@
 package com.hotservice.sauron.model.messages;
 
-public abstract class AbstractMessage {
+import java.io.Serializable;
+
+public abstract class AbstractMessage implements Serializable{
+
 }

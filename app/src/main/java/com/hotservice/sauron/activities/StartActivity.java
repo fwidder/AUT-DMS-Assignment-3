@@ -88,8 +88,8 @@ public class StartActivity extends AppCompatActivity {
                 openCreateActivity();
             }
         });
-
-        if (Config.CREATOR) {
+        if(Config.CREATOR != null)
+        if (Config.CREATOR ) {
             join.setEnabled(false);
         } else if (!Config.CREATOR) {
             create.setEnabled(false);
@@ -145,7 +145,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void openProfileActivity() {
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, BlueToothActivity.class);
         startActivity(intent);
     }
 }

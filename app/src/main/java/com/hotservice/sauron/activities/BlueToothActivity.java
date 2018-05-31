@@ -17,8 +17,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.model.Group;
+import com.hotservice.sauron.model.messages.BluetoothMessage;
 import com.hotservice.sauron.service.BluetoothService;
 import com.hotservice.sauron.service.DeviceListAdapter;
+import com.hotservice.sauron.utils.MessageHelper;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -129,39 +132,58 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         ctx = this;
         setContentView(R.layout.activity_blue_tooth);
-        discoverbtn = findViewById(R.id.discoverbtn);
-        discoverbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnDiscover(v);
-            }
-        });
+        mBTDevices = new ArrayList<>();
+        lvNewDevices = findViewById(R.id.lvNewDevices);
         btnDiscover = findViewById(R.id.btnDiscoverable_on_off);
+        btnDiscover.setEnabled(true);
+        discoverbtn = findViewById(R.id.discoverbtn);
+        discoverbtn.setEnabled(false);
+        startConnection = findViewById(R.id.startConnection);
+        startConnection.setEnabled(false);
+        send = findViewById(R.id.send);
+        send.setEnabled(false);
+        editText2 = findViewById(R.id.editText2);
+
         btnDiscover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enableDiscoveable(v);
+                enableDiscoveable();
+                btnDiscover.setEnabled(false);
+                discoverbtn.setEnabled(true);
             }
         });
-        lvNewDevices = findViewById(R.id.lvNewDevices);
-        mBTDevices = new ArrayList<>();
 
-        startConnection = findViewById(R.id.startConnection);
+        discoverbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnDiscover();
+                discoverbtn.setEnabled(false);
+            }
+        });
+
         startConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startConnection();
+                startConnection.setEnabled(false);
+                send.setEnabled(true);
             }
         });
-        send = findViewById(R.id.send);
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                byte[] bytes = editText2.getText().toString().getBytes(Charset.defaultCharset());
-                mBluetoothConnection.write(bytes);
+
+                byte[] msg = new byte[0];
+                try {
+                    msg = new MessageHelper().toBytes(new BluetoothMessage("2345234534", Group.getInstance().getUserList()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //byte[] bytes = editText2.getText().toString().getBytes(Charset.defaultCharset());
+                mBluetoothConnection.write(msg);
             }
         });
-        editText2 = findViewById(R.id.editText2);
 
         IntentFilter pairFilter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         registerReceiver(mBroadcastReceiver3, pairFilter);
@@ -172,15 +194,7 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(mBroadcastReceiver, filter);
 
-
         mBluetoothService = new BluetoothService(getCtx());
-
-/*        mServiceIntent = new Intent(getCtx(), mBluetoothService.getClass());
-        if (!isMyServiceRunning(mBluetoothService.getClass())) {
-
-            Log.d("Bluetooth Service", "Starting Service");
-            startService(mServiceIntent);
-        } */
     }
 
     public void startConnection() {
@@ -194,15 +208,15 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     protected void onDestroy() {
-        stopService(mServiceIntent);
-        Log.i("Bluetooth Service", "Activity destroy!");
-        //unregisterReceiver(mBroadcastReceiver);
-        //unregisterReceiver(mBroadcastReceiver2);
-        //unregisterReceiver(mBroadcastReceiver3);
+        //stopService(mServiceIntent);
+        //Log.i("Bluetooth Service", "Activity destroy!");
+        unregisterReceiver(mBroadcastReceiver);
+        unregisterReceiver(mBroadcastReceiver2);
+        unregisterReceiver(mBroadcastReceiver3);
         super.onDestroy();
     }
 
-    public void enableDiscoveable(View view) {
+    public void enableDiscoveable() {
         Log.d("enanble bluetooth", "Making discoverable for 300 seconds");
 
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
@@ -214,7 +228,7 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
     }
 
 
-    public void btnDiscover(View view) {
+    public void btnDiscover() {
         Log.d("discover", "looking for paired devices");
         if (mBlueToothAdapter.isDiscovering()) {
             mBlueToothAdapter.cancelDiscovery();
@@ -252,5 +266,6 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         mBTDevices.get(i).createBond();
         mBTDevice = mBTDevices.get(i);
         mBluetoothConnection = new BluetoothService(BlueToothActivity.this);
+        startConnection.setEnabled(true);
     }
 }
