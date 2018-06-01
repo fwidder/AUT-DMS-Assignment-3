@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.hotservice.sauron.activities.MapActivity;
 import com.hotservice.sauron.model.Group;
 import com.hotservice.sauron.model.User;
 import com.hotservice.sauron.utils.Config;
@@ -97,6 +98,12 @@ public class SensorService extends Service {
                         if (!found)
                             continue;
                         Boolean ret = connect(bt, UUID.randomUUID());
+                        if (!ret) {
+                            stoptimertask();
+                            Intent intent = new Intent(SensorService.this, MapActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
                         Log.d("BT TEST", bt.getAddress() + " - " + bt.getName() + ":" + ret.toString());
                     }
                 } else {

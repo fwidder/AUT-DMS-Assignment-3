@@ -1,10 +1,7 @@
 package com.hotservice.sauron.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -63,7 +60,7 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
         //TODO: Handle result of QR Scan
         final String scanResult = result.getText();
         Config.SERVER_MAC = scanResult;
-        Log.d("SCANNED", ""+scanResult);
+        Log.d("SCANNED", "" + scanResult);
     /*    AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

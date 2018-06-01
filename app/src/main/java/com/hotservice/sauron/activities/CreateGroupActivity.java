@@ -39,7 +39,7 @@ import java.util.UUID;
 public class CreateGroupActivity extends AppCompatActivity {
 
     private static final UUID MY_UUID = UUID.randomUUID();
-
+    private static SensorService mSensorService;
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -72,7 +72,6 @@ public class CreateGroupActivity extends AppCompatActivity {
     private Button saveButton;
     private EditText nameBox;
     private ImageView imageView;
-    private SensorService mSensorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,12 +132,27 @@ public class CreateGroupActivity extends AppCompatActivity {
             nameBox.setText(Config.GROUP_NAME);
             saveButton.performClick();
         }
+
+        ((Button) findViewById(R.id.btReady)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateGroupActivity.this.start();
+            }
+        });
+
+        if (mSensorService != null && isMyServiceRunning(mSensorService.getClass())) {
+            saveButton.setEnabled(false);
+            btAdd.setEnabled(false);
+        }
+
+    }
+
+    private void start() {
         mSensorService = new SensorService(this);
         mServiceIntent = new Intent(this, mSensorService.getClass());
         if (!isMyServiceRunning(mSensorService.getClass())) {
             startService(mServiceIntent);
         }
-
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -186,7 +200,5 @@ public class CreateGroupActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        stopService(mServiceIntent);
     }
 }
