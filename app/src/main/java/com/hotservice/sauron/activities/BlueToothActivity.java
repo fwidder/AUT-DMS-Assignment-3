@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.model.Group;
@@ -29,7 +30,6 @@ import java.util.UUID;
 public class BlueToothActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
-    private static BluetoothService mBluetoothService;
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -64,7 +64,7 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
     Button discoverbtn;
     Button startConnection;
     Button send;
-    EditText editText2;
+    TextView connectionState;
     BluetoothDevice mBTDevice;
     private final BroadcastReceiver mBroadcastReceiver3 = new BroadcastReceiver() {
         @Override
@@ -139,9 +139,9 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         discoverbtn.setEnabled(false);
         startConnection = findViewById(R.id.startConnection);
         startConnection.setEnabled(false);
+        connectionState.findViewById(R.id.connectionState);
         send = findViewById(R.id.send);
         send.setEnabled(false);
-        editText2 = findViewById(R.id.editText2);
 
         btnDiscover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,7 +193,6 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(mBroadcastReceiver, filter);
 
-        mBluetoothService = new BluetoothService(getCtx());
     }
 
     public void startConnection() {
