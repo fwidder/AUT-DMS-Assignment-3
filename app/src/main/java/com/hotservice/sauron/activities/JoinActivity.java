@@ -1,5 +1,8 @@
 package com.hotservice.sauron.activities;
 
+import android.app.ActivityManager;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
@@ -13,6 +16,7 @@ import android.widget.Button;
 
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.model.messages.NFCMessage;
+import com.hotservice.sauron.service.SensorService;
 import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.MessageHelper;
 
@@ -23,6 +27,10 @@ public class JoinActivity extends AppCompatActivity {
 
     private Button scanQR;
     private Button scanNFC;
+
+    BluetoothAdapter mBlueToothAdapter;
+    Intent mServiceIntent;
+    private SensorService mSensorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,25 @@ public class JoinActivity extends AppCompatActivity {
                 openQrActivity();
             }
         });
+
+
+        mSensorService = new SensorService(this);
+        mServiceIntent = new Intent(this, mSensorService.getClass());
+        if (!isMyServiceRunning(mSensorService.getClass())) {
+            startService(mServiceIntent);
+        }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i("isMyServiceRunning?", true + "");
+                return true;
+            }
+        }
+        Log.i("isMyServiceRunning?", false + "");
+        return false;
     }
 
     @Override
@@ -79,5 +106,10 @@ public class JoinActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+        stopService(mServiceIntent);
+    }
 }

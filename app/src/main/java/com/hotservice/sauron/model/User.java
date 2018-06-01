@@ -9,6 +9,14 @@ public class User implements Serializable {
     private String mobileNumber;
     private String name;
     private String BTMac;
+    private boolean smsState = false;
+
+    /**
+     * Create a new user
+     */
+    public User() {
+        uuid = UUID.randomUUID().toString();
+    }
 
     public String getBTMac() {
         return BTMac;
@@ -21,15 +29,6 @@ public class User implements Serializable {
     public boolean isSmsState() {
         return smsState;
     }
-    private boolean smsState = false;
-
-    /**
-     * Create a new user
-     */
-    public User() {
-        uuid = UUID.randomUUID().toString();
-    }
-
 
     public String getUuid() {
         return uuid;

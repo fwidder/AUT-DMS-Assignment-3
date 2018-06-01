@@ -1,5 +1,6 @@
 package com.hotservice.sauron.activities;
 
+import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,7 +26,7 @@ import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.model.Group;
 import com.hotservice.sauron.model.messages.NFCMessage;
-import com.hotservice.sauron.service.BluetoothService;
+import com.hotservice.sauron.service.SensorService;
 import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.NfcMessageWrapper;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
@@ -38,7 +39,6 @@ import java.util.UUID;
 public class CreateGroupActivity extends AppCompatActivity {
 
     private static final UUID MY_UUID = UUID.randomUUID();
-    private static BluetoothService mBluetoothService;
 
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -68,10 +68,11 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
     };
     BluetoothAdapter mBlueToothAdapter;
-    BluetoothService mBluetoothConnection;
+    Intent mServiceIntent;
     private Button saveButton;
     private EditText nameBox;
     private ImageView imageView;
+    private SensorService mSensorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,24 @@ public class CreateGroupActivity extends AppCompatActivity {
             nameBox.setText(Config.GROUP_NAME);
             saveButton.performClick();
         }
+        mSensorService = new SensorService(this);
+        mServiceIntent = new Intent(this, mSensorService.getClass());
+        if (!isMyServiceRunning(mSensorService.getClass())) {
+            startService(mServiceIntent);
+        }
+
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i("isMyServiceRunning?", true + "");
+                return true;
+            }
+        }
+        Log.i("isMyServiceRunning?", false + "");
+        return false;
     }
 
     /**
@@ -167,5 +186,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        stopService(mServiceIntent);
     }
 }
