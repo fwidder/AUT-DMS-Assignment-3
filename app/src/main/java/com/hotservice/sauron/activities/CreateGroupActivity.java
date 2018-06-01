@@ -1,11 +1,9 @@
 package com.hotservice.sauron.activities;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.nfc.NfcAdapter;
@@ -25,7 +23,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hotservice.sauron.R;
-import com.hotservice.sauron.model.messages.AbstractMessage;
+import com.hotservice.sauron.model.Group;
+import com.hotservice.sauron.model.messages.NFCMessage;
 import com.hotservice.sauron.service.BluetoothService;
 import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.NfcMessageWrapper;
@@ -78,9 +77,6 @@ public class CreateGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Config.CREATOR = true;
-        mBlueToothAdapter = BluetoothAdapter.getDefaultAdapter();
-        mBluetoothService = new BluetoothService(this);
-        mBluetoothConnection = new BluetoothService(CreateGroupActivity.this);
         // Set layout
         setContentView(R.layout.activity_create_group);
 
@@ -89,19 +85,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         nameBox = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
         saveButton = this.findViewById(R.id.saveButton);
-        Button btAdd = (Button) findViewById(R.id.addDevice);
-        btAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mBluetoothService.cancel();
-                unregisterReceiver(mBroadcastReceiver);
-                mBlueToothAdapter = BluetoothAdapter.getDefaultAdapter();
-                mBluetoothService = new BluetoothService(CreateGroupActivity.this);
-                startConnection();
-                enableDiscoveable();
-            }
-        });
-        startConnection();
+        Button btAdd = findViewById(R.id.addDevice);
 
         setSupportActionBar(toolbar);
 
@@ -113,7 +97,12 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Config.CREATOR = true;
 
                 // Create and display QR-Code
-                String text2QR = nameBox.getText().toString();
+                String text2QR = "Error";
+                try {
+                    text2QR = Group.getInstance().getMe().getBTMac();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try {
                     BitMatrix bitMatrix = multiFormatWriter.encode(text2QR, BarcodeFormat.QR_CODE, 400, 400);
@@ -126,8 +115,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 //Start NFC-Sending
                 startNFC();
-
-                enableDiscoveable();
             }
         });
     }
@@ -152,37 +139,18 @@ public class CreateGroupActivity extends AppCompatActivity {
             startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
         }
 
-        //TODO: Create Message
+        try {
+            message = new NfcMessageWrapper(new NFCMessage().setMac(Group.getInstance().getMe().getBTMac()).setName(Group.getInstance().getMe().getName()));
 
-        message = new NfcMessageWrapper(new AbstractMessage() {
-        });
+            nfcAdapter.setNdefPushMessageCallback(message, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        nfcAdapter.setNdefPushMessageCallback(message, this);
-    }
-
-    public void enableDiscoveable() {
-        Log.d("enanble bluetooth", "Making discoverable for 300 seconds");
-
-        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-        startActivity(discoverableIntent);
-
-        IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
-        registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mBroadcastReceiver);
-    }
-
-    public void startConnection() {
-        startBTConnection(null, MY_UUID);           //  server dosnt neeed a device to listen for?
-    }
-
-    public void startBTConnection(BluetoothDevice device, UUID uuid) {
-        Log.d("transfer", "Initalizing RFCOM Bluetooth Connection.");
-        mBluetoothConnection.startClient(device, uuid);
     }
 }

@@ -50,10 +50,6 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDi_-ODddsrShgu3rO8eg1ArOoTYI5OMa0" />
 
-        <service
-            android:name=".service.BluetoothService"
-            android:enabled="true" />
-
         <receiver
             android:name=".service.SmsService"
             android:enabled="true"

@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.hotservice.sauron.R;
-import com.hotservice.sauron.model.messages.AbstractMessage;
+import com.hotservice.sauron.model.messages.NFCMessage;
 import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.MessageHelper;
 
@@ -62,10 +62,9 @@ public class JoinActivity extends AppCompatActivity {
                 for (Parcelable rawMsg : rawMessages) {
                     //Parse payload
                     NdefMessage message = (NdefMessage) rawMsg;
-                    AbstractMessage m = new MessageHelper().toMessage(message.getRecords()[0].getPayload());
+                    NFCMessage m = (NFCMessage) new MessageHelper().toMessage(message.getRecords()[0].getPayload());
                     //TODO: Do NFC Action
-                    Toast.makeText(this, m.toString(),
-                            Toast.LENGTH_SHORT).show();
+                    Log.d("NFC", m.toString());
                 }
             }
 

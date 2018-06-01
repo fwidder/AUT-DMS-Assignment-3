@@ -4,7 +4,23 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class User implements Serializable {
-    private String ID, uuid, mobileNumber, name;
+    private String ID;
+    private String uuid;
+    private String mobileNumber;
+    private String name;
+    private String BTMac;
+
+    public String getBTMac() {
+        return BTMac;
+    }
+
+    public void setBTMac(String BTMac) {
+        this.BTMac = BTMac;
+    }
+
+    public boolean isSmsState() {
+        return smsState;
+    }
     private boolean smsState = false;
 
     /**
@@ -14,16 +30,6 @@ public class User implements Serializable {
         uuid = UUID.randomUUID().toString();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "ID='" + ID + '\'' +
-                ", uuid='" + uuid + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", name='" + name + '\'' +
-                ", smsState=" + smsState +
-                '}';
-    }
 
     public String getUuid() {
         return uuid;
