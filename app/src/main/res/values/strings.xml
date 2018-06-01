@@ -40,6 +40,9 @@
     <string name="btSave">Save</string>
     <string name="take_picture">Take picture</string>
     <string name="select_a_picture">Select a picture</string>
+    <string name="title_activity_blue_data">BlueData</string>
+    <string name="title_activity_blue_server">BlueServerActivity</string>
+    <string name="title_activity_join_blue">JoinBlueActivity</string>
 
 
 </resources>

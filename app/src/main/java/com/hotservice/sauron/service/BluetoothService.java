@@ -221,6 +221,12 @@ public class BluetoothService extends Service {
         private final OutputStream mmOutStream;
 
         public ConnectedThread(BluetoothSocket socket) {
+            /**
+             *    added to try to close streams and socket properly
+             */
+            //resetConnection();
+
+
             mmSocket = socket;
             InputStream tempIn = null;
             OutputStream tempOut = null;
@@ -271,6 +277,34 @@ public class BluetoothService extends Service {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        /**
+         * close the streams before closing the socket   attempt 1
+         */
+        public void resetConnection(){
+            InputStream tempIn = mmInStream;
+            OutputStream tempOut = mmOutStream;
+            if(mmInStream != null){
+                try {
+                    mmInStream.close();
+                }catch (Exception e){
+                    Log.d("resetStream error", "in stream close error "+e);
+                }
+            }
+            if(mmOutStream != null){
+                try {
+                    mmOutStream.close();
+                }catch (Exception e){
+                    Log.d("resetStream error", "out stream close error "+e);
+                }
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            cancel();            //close the socket
         }
     }
 }
