@@ -25,11 +25,10 @@ import com.hotservice.sauron.utils.MessageHelper;
  */
 public class JoinActivity extends AppCompatActivity {
 
-    private Button scanQR;
-    private Button scanNFC;
-
     BluetoothAdapter mBlueToothAdapter;
     Intent mServiceIntent;
+    private Button scanQR;
+    private Button scanNFC;
     private SensorService mSensorService;
 
     @Override

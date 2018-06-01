@@ -51,11 +51,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     try {
                         if (u.equals(Group.getInstance().getMe()))
                             continue;
-                        smsManager.sendTextMessage(u.getMobileNumber(), null, (Config.SMS_HEAD + Config.REALLY_POINT.latitude + Config.SMS_DIV + Config.REALLY_POINT.longitude + Config.SMS_DIV), null, null);
+                        smsManager.sendTextMessage(u.getMobileNumber(), null, (Config.SMS_HEAD + Config.REALLY_POINT.latitude + Config.SMS_DIV + Config.REALLY_POINT.longitude), null, null);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+                findViewById(R.id.btSave).setVisibility(Button.INVISIBLE);
             }
         });
 
