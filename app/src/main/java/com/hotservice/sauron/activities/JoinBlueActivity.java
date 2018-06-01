@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.model.Group;
 import com.hotservice.sauron.model.messages.BluetoothMessage;
+import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.MessageHelper;
 
 import java.io.IOException;
@@ -94,7 +95,9 @@ public class JoinBlueActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ServerClass serverClass = new ServerClass();
                 serverClass.start();
-                listDevices.setEnabled(true);
+                if((Config.CREATOR != null)&&(Config.CREATOR == true)){
+                    listDevices.setEnabled(true);
+                }
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
