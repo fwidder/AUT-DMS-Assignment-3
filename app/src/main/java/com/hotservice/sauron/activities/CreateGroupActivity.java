@@ -80,19 +80,28 @@ public class CreateGroupActivity extends AppCompatActivity {
         // Set layout
         setContentView(R.layout.activity_create_group);
 
+
         // Set context variables
         Toolbar toolbar = findViewById(R.id.toolbar);
         nameBox = this.findViewById(R.id.nameBox);
         imageView = this.findViewById(R.id.createGroupQR);
         saveButton = this.findViewById(R.id.saveButton);
         Button btAdd = findViewById(R.id.addDevice);
+        btAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(CreateGroupActivity.this, JoinBlueActivity.class);
+                startActivity(intent);
+            }
+        });
         setSupportActionBar(toolbar);
 
         // Set button actions
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Config.GROUP_NAME = nameBox.getText().toString();
                 // Set to CREATOR (Server State)
                 Config.CREATOR = true;
 
@@ -117,6 +126,12 @@ public class CreateGroupActivity extends AppCompatActivity {
                 startNFC();
             }
         });
+
+
+        if (Config.GROUP_NAME != null) {
+            nameBox.setText(Config.GROUP_NAME);
+            saveButton.performClick();
+        }
     }
 
     /**

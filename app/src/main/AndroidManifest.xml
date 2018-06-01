@@ -110,7 +110,6 @@
             android:name=".activities.QRscanActivity"
             android:label="@string/title_activity_qrscan"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.BlueToothActivity" />
         <activity
             android:name=".activities.JoinBlueActivity"
             android:label="@string/title_activity_join_blue"

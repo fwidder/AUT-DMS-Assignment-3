@@ -14,6 +14,7 @@ public class Config {
      */
     public static final String USER_ID;
     public static final long VIBRATION_TIME;
+    public static String GROUP_NAME;
     public static String SERVER_MAC;
     /**
      * Global Bluetooth Pin
@@ -41,6 +42,8 @@ public class Config {
 
     static {
         CREATOR = null;
+
+        GROUP_NAME = null;
 
         ALERT_MODE = false;
 
