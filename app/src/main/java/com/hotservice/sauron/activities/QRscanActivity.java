@@ -79,10 +79,11 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
         });
         builder.setMessage(scanResult);
         AlertDialog alert = builder.create();
-        alert.show();                             */
+        alert.show();   */
+        scannerView.stopCamera();
         Intent intent = new Intent(this, JoinBlueActivity.class);
         startActivity(intent);
-        scannerView.stopCamera();
+
     }
 
 }

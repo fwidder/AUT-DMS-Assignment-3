@@ -17,9 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hotservice.sauron.R;
 import com.hotservice.sauron.model.Group;
+import com.hotservice.sauron.model.User;
 import com.hotservice.sauron.model.messages.BluetoothMessage;
 import com.hotservice.sauron.utils.Config;
 import com.hotservice.sauron.utils.MessageHelper;
@@ -30,15 +32,13 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
+import static android.widget.Toast.LENGTH_LONG;
+
+/**
+ * comunicate with group via bluetooth
+ */
 public class JoinBlueActivity extends AppCompatActivity {
 
-    static final int STATE_LISTENING = 1;
-    static final int STATE_CONNECTING = 2;
-    static final int STATE_CONNECTED = 3;
-    static final int STATE_CONNECTION_FAILED = 4;
-    static final int STATE_MESSAGE_RECIEVED = 5;
-    private static final String APP_NAME = "Sauron";
-    private static final UUID my_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
     Button listen;
     Button listDevices;
     TextView status;
@@ -47,7 +47,16 @@ public class JoinBlueActivity extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter;
     BluetoothDevice[] btArray;
     SendRecive sendRecive;
+    static final int STATE_LISTENING = 1;
+    static final int STATE_CONNECTING = 2;
+    static final int STATE_CONNECTED = 3;
+    static final int STATE_CONNECTION_FAILED = 4;
+    static final int STATE_MESSAGE_RECIEVED = 5;
+
     int REQUEST_ENABLE_BLUETOOTH = 1;
+
+    private static final String APP_NAME = "Sauron";
+    private static final UUID my_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -65,9 +74,16 @@ public class JoinBlueActivity extends AppCompatActivity {
                     status.setText("Connection Failed");
                     break;
                 case STATE_MESSAGE_RECIEVED:
+
                     byte[] readBuffer = (byte[]) msg.obj;
                     String tempMsg = new String(readBuffer, 0, msg.arg1);
                     Log.d("RECEIVED", "msg: " + tempMsg);
+                    BluetoothMessage mess = (BluetoothMessage) new MessageHelper().toMessage(readBuffer);
+                    for (User u : mess.getUserList()) {
+                        Group.getInstance().getUserList().add(u);
+                    }
+                    Toast toast = Toast.makeText(JoinBlueActivity.this, "User Added", LENGTH_LONG);
+                    toast.show();
                     break;
             }
             return true;
@@ -97,15 +113,22 @@ public class JoinBlueActivity extends AppCompatActivity {
                 Set<BluetoothDevice> bt = bluetoothAdapter.getBondedDevices();
                 String[] strings = new String[bt.size()];
                 btArray = new BluetoothDevice[bt.size()];
+                boolean found = false;
                 int index = 0;
                 if (bt.size() > 0) {
                     for (BluetoothDevice device : bt) {
+                        Log.d("MAC", "Local: " + Config.SERVER_MAC);
+                        Log.d("MAC", "found: " + device.getAddress().toString().toLowerCase());
+                        //if(Config.SERVER_MAC.toLowerCase().equals(device.getAddress().toString().toLowerCase())){
+                        found = true;
                         btArray[index] = device;
                         strings[index] = device.getName();
                         index++;
+                        //}
                     }
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
                     listView.setAdapter(arrayAdapter);
+                    Log.d("FOUND", "" + found);
                 }
             }
         });
@@ -114,7 +137,7 @@ public class JoinBlueActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ServerClass serverClass = new ServerClass();
                 serverClass.start();
-                if ((Config.CREATOR != null) && (Config.CREATOR == true)) {
+                if ((Config.CREATOR == false)) {
                     listDevices.setEnabled(true);
                 }
             }
@@ -125,6 +148,11 @@ public class JoinBlueActivity extends AppCompatActivity {
                 ClientClass clientClass = new ClientClass(btArray[i]);
                 clientClass.start();
                 status.setText("Connecting");
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 send.setEnabled(true);
             }
         });
