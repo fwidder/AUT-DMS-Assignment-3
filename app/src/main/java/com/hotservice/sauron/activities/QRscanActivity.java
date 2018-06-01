@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.google.zxing.Result;
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.utils.Config;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -60,7 +62,9 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
     public void handleResult(Result result) {
         //TODO: Handle result of QR Scan
         final String scanResult = result.getText();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        Config.SERVER_MAC = scanResult;
+        Log.d("SCANNED", ""+scanResult);
+    /*    AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -78,10 +82,10 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
         });
         builder.setMessage(scanResult);
         AlertDialog alert = builder.create();
-        alert.show();
-        scannerView.stopCamera();
-        Intent intent = new Intent(this, BlueToothActivity.class);
+        alert.show();                             */
+        Intent intent = new Intent(this, JoinBlueActivity.class);
         startActivity(intent);
+        scannerView.stopCamera();
     }
 
 }

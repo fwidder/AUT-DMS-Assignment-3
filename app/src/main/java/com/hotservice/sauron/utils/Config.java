@@ -14,6 +14,7 @@ public class Config {
      */
     public static final String USER_ID;
     public static final long VIBRATION_TIME;
+    public static String SERVER_MAC;
     /**
      * Global Bluetooth Pin
      */
@@ -52,6 +53,8 @@ public class Config {
         USER_ID = StringTools.getRandomString(32);
 
         BLUETOOTH_PIN = 2968;
+
+        SERVER_MAC = null;
 
         SMS_HEAD = "*SAURON*";
 
