@@ -50,8 +50,16 @@ public class StartActivity extends AppCompatActivity {
             u = new UserHelper().toUser(targetArray);
         else
             u = new User();
+        if (u == null) {
+            u = new User();
+        }
         Log.d("User", u.toString());
         u.setID(Config.USER_ID);
+
+        String macAddress = android.provider.Settings.Secure.getString(this.getContentResolver(), "bluetooth_address");
+
+        u.setBTMac(macAddress);
+
         try {
             Group.getInstance().getMe();
         } catch (Exception e) {
@@ -145,7 +153,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void openProfileActivity() {
-        Intent intent = new Intent(this, JoinBlueActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 }

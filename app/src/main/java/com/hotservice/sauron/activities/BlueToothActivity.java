@@ -1,6 +1,5 @@
 package com.hotservice.sauron.activities;
 
-import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -231,25 +229,15 @@ public class BlueToothActivity extends AppCompatActivity implements AdapterView.
         if (mBlueToothAdapter.isDiscovering()) {
             mBlueToothAdapter.cancelDiscovery();
             // check permissions in manifest
-            checkPermissions();
 
             mBlueToothAdapter.startDiscovery();
             IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
             registerReceiver(mBroadcastReceiver2, discoverDevicesIntent);
         }
         if (!mBlueToothAdapter.isDiscovering()) {
-            checkPermissions();
             mBlueToothAdapter.startDiscovery();
             IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
             registerReceiver(mBroadcastReceiver2, discoverDevicesIntent);
-        }
-    }
-
-    private void checkPermissions() {
-        int permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
-        permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
-        if (permissionCheck != 0) {
-            this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
         }
     }
 
