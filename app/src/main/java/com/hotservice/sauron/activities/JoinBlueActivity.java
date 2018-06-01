@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hotservice.sauron.R;
+import com.hotservice.sauron.model.Group;
+import com.hotservice.sauron.model.messages.BluetoothMessage;
+import com.hotservice.sauron.utils.MessageHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,8 +39,6 @@ public class JoinBlueActivity extends AppCompatActivity {
     Button listDevices;
     TextView status;
     ListView listView;
-    TextView msg_box;
-    EditText writemsg;
     Button send;
     BluetoothAdapter bluetoothAdapter;
     BluetoothDevice[] btArray;
@@ -82,9 +84,8 @@ public class JoinBlueActivity extends AppCompatActivity {
                         strings[index] = device.getName();
                         index++;
                     }
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
                     listView.setAdapter(arrayAdapter);
-
                 }
             }
         });
@@ -106,8 +107,8 @@ public class JoinBlueActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String string = String.valueOf(writemsg.getText());
-                sendRecive.write(string.getBytes());
+                byte[] user = new MessageHelper().toBytes(new BluetoothMessage(my_UUID.toString(), Group.getInstance().getUserList()));
+                sendRecive.write(user);
             }
         });
     }
@@ -127,7 +128,7 @@ public class JoinBlueActivity extends AppCompatActivity {
                 case STATE_MESSAGE_RECIEVED:
                     byte[] readBuffer = (byte[]) msg.obj;
                     String tempMsg = new String(readBuffer,0,msg.arg1);
-                    msg_box.setText(tempMsg);
+                    Log.d("RECEIVED", "msg: "+tempMsg);
                     break;
             }
             return true;
@@ -137,11 +138,11 @@ public class JoinBlueActivity extends AppCompatActivity {
     private void findViewsById(){
         listen = findViewById(R.id.listen);
         send = findViewById(R.id.send);
+        send.setEnabled(false);
         listView = findViewById(R.id.listView);
-        msg_box = findViewById(R.id.msg);
+        listView.setEnabled(false);
         status = findViewById(R.id.status);
         listDevices = findViewById(R.id.listDevices);
-        writemsg = findViewById(R.id.writemsg);
     }
 
     private class ServerClass extends Thread{
