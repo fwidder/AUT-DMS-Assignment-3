@@ -38,6 +38,9 @@ import java.util.UUID;
 
 import static android.widget.Toast.LENGTH_LONG;
 
+/**
+ *  comunicate with group via bluetooth
+ */
 public class JoinBlueActivity extends AppCompatActivity {
 
     Button listen;
