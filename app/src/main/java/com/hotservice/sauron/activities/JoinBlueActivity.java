@@ -78,15 +78,20 @@ public class JoinBlueActivity extends AppCompatActivity {
                 Set<BluetoothDevice> bt = bluetoothAdapter.getBondedDevices();
                 String[] strings = new String[bt.size()];
                 btArray = new BluetoothDevice[bt.size()];
+                boolean found = false;
                 int index=0;
                 if(bt.size() > 0){
                     for(BluetoothDevice device : bt){
-                        btArray[index] = device;
-                        strings[index] = device.getName();
-                        index++;
+                        if(Config.SERVER_MAC.toLowerCase().equals(device.getAddress().toString().toLowerCase())){
+                            found = true;
+                            btArray[index] = device;
+                            strings[index] = device.getName();
+                            index++;
+                        }
                     }
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
                     listView.setAdapter(arrayAdapter);
+                    Log.d("FOUND", ""+found);
                 }
             }
         });
