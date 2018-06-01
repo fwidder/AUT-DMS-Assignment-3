@@ -94,6 +94,7 @@ public class JoinBlueActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ServerClass serverClass = new ServerClass();
                 serverClass.start();
+                listDevices.setEnabled(true);
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -102,6 +103,7 @@ public class JoinBlueActivity extends AppCompatActivity {
                 ClientClass clientClass = new ClientClass(btArray[i]);
                 clientClass.start();
                 status.setText("Connecting");
+                send.setEnabled(true);
             }
         });
         send.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +142,9 @@ public class JoinBlueActivity extends AppCompatActivity {
         send = findViewById(R.id.send);
         send.setEnabled(false);
         listView = findViewById(R.id.listView);
-        listView.setEnabled(false);
         status = findViewById(R.id.status);
         listDevices = findViewById(R.id.listDevices);
+        listDevices.setEnabled(false);
     }
 
     private class ServerClass extends Thread{
