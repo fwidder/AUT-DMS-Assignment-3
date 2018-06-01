@@ -51,6 +51,15 @@
             android:value="AIzaSyDi_-ODddsrShgu3rO8eg1ArOoTYI5OMa0" />
 
         <receiver
+            android:name="com.hotservice.sauron.service.SensorRestarterBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="com.hotservice.sauron.RestartSensor" />
+            </intent-filter>
+        </receiver>
+        <receiver
             android:name=".service.SmsService"
             android:enabled="true"
             android:exported="true"
@@ -59,16 +68,10 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name=".service.BluetoothRestarterBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:label="RestartBluetoothServiceWhenStopped"
-            android:permission="com.hotservice.sauron.service.BluetoothRestart">
-            <intent-filter>
-                <action android:name="com.hotservice.sauron.service.BluetoothRestart" />
-            </intent-filter>
-        </receiver>
+
+        <service
+            android:name="com.hotservice.sauron.service.SensorService"
+            android:enabled="true"></service>
 
         <activity android:name=".activities.StartActivity">
             <intent-filter>

@@ -14,8 +14,6 @@ public class Config {
      */
     public static final String USER_ID;
     public static final long VIBRATION_TIME;
-    public static String GROUP_NAME;
-    public static String SERVER_MAC;
     /**
      * Global Bluetooth Pin
      */
@@ -29,6 +27,8 @@ public class Config {
      */
     public static final String[] PERMISSIONS;
     public static final String SMS_DIV;
+    public static String GROUP_NAME;
+    public static String SERVER_MAC;
     /**
      * Unique User ID
      */
